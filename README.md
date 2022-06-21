@@ -97,7 +97,7 @@ erDiagram
         string ip_address
     }
     ROUTINE ||--|{ ROUTINE_TIME_ENTRIES : logs
-    ROUTINE_TIME_ENTRIES {
+    ROUTINE_TIME_ENTRIES{
         int routine_id
         int user_id
         time/date timestamp
