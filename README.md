@@ -53,7 +53,7 @@ erDiagram
         time end_time
     }
     USER ||--|{ ROUTINE : has
-    ROOM ||--0{ SPEAKER_ROUTINE_SETTING
+    ROOM ||--0{ SPEAKER_ROUTINE_SETTING : has
     SPEAKER_ROUTINE_SETTING {
         int speaker_routine_id
         int speaker_id
@@ -67,8 +67,46 @@ erDiagram
         int routine_id
         double temperature
     }
-
-
+    ROOM ||--0{ LIGHT_ROUTINE_SETTING : has
+    LIGHT_ROUTINE_SETTING {
+        int light_routine_id
+        int light_id
+        int routine_id
+        double brightness
+        int light_temperature
+    }
+    SPEAKER_ROUTINE_SETTING ||--|{ SPEAKER : controls
+    SPEAKER {
+        int speaker_id
+        string ip_address
+    }
+    TRV_ROUTINE_SETTING ||--0{ TRV : controls
+    TRV {
+        int trv_id
+        string ip_address
+    }
+    LIGHT_ROUTINE_SETTING ||--0{ LIGHT : controls
+    LIGHT{
+        int light_id
+        string ip_address
+    }
+    ROOM ||--|| CAMERA : has
+    CAMERA{
+        int camera_id
+        string ip_address
+    }
+    ROUTINE ||--|{ ROUTINE_TIME_ENTRIES : logs
+    ROUTINE_TIME_ENTRIES{
+        int routine_id
+        int user_id
+        time/date timestamp
+    }
+    ROUTINE ||--|{ ROUTINE_ALERT : creates
+    ROUTINE_ALERT{
+        int alert_id
+        string message
+        int routine_id
+    }
 
     
 ```
