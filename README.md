@@ -19,7 +19,7 @@ graph TD
     I --- J[Light]
     
     erDiagram
-    USER ||--|| HOME
+    USER ||--|| HOME : partOf
     USER {
         int user_id
         string first_name
@@ -64,6 +64,9 @@ graph TD
         int routine_id
         double temperature
     }
+
+
+
 
 
 
