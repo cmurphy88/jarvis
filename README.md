@@ -22,14 +22,14 @@ graph TD
   ## ERD
 ```mermaid
 erDiagram
-    USER ||--|| HOME :
+    USER ||--|| HOME : partOf
     USER {
         int user_id
         string first_name
         string last_name
         string email
     }
-    HOME ||--|| USER_HIERARCHY :
+    HOME ||--|| USER_HIERARCHY : hasA
     HOME {
         int home_id
         int admin_id
@@ -38,7 +38,7 @@ erDiagram
         int home_id
         list user_order
     }
-    HOME ||--|{ ROOM :
+    HOME ||--|{ ROOM : inside
     ROOM{
         int room_id
         int home_id
