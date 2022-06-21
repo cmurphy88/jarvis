@@ -22,14 +22,14 @@ graph TD
   ## ERD
 ```mermaid
 erDiagram
-    USER ||--|| HOME : partOf
+    USER ||--|| HOME : has
     USER {
         int user_id
         string first_name
         string last_name
         string email
     }
-    HOME ||--|| USER_HIERARCHY : hasA
+    HOME ||--|| USER_HIERARCHY : contains
     HOME {
         int home_id
         int admin_id
@@ -38,21 +38,21 @@ erDiagram
         int home_id
         list user_order
     }
-    HOME ||--|{ ROOM : inside
+    HOME ||--|{ ROOM : contains
     ROOM{
         int room_id
         int home_id
         int routine_id
         int camera_id
     }
-    ROUTINE ||--|{ ROOM
+    ROUTINE ||--|{ ROOM : part
     ROUTINE {
         int routine_id
         int user_id
         time start_time
         time end_time
     }
-    USER ||--|{ ROUTINE
+    USER ||--|{ ROUTINE : has
     ROOM ||--0{ SPEAKER_ROUTINE_SETTING
     SPEAKER_ROUTINE_SETTING {
         int speaker_routine_id
@@ -60,7 +60,7 @@ erDiagram
         int routine_id
         string media_url
     }
-    ROOM ||--0{ TRV_ROUTINE_SETTING
+    ROOM ||--0{ TRV_ROUTINE_SETTING : has
     TRV_ROUTINE_SETTING {
         int trv_routine_id
         int trv_id
