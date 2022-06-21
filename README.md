@@ -45,7 +45,7 @@ erDiagram
         int routine_id
         int camera_id
     }
-    ROUTINE ||--|{ ROOM : part
+    ROUTINE ||--|{ ROOM : partOf
     ROUTINE {
         int routine_id
         int user_id
@@ -53,8 +53,8 @@ erDiagram
         time end_time
     }
     USER ||--|{ ROUTINE : has
-    
-    ROOM ||--0{ SPEAKER_ROUTINE_SETTING : has
+
+    ROOM ||--o{ SPEAKER_ROUTINE_SETTING : has
     SPEAKER_ROUTINE_SETTING {
         int speaker_routine_id
         int speaker_id
@@ -108,7 +108,6 @@ erDiagram
         string message
         int routine_id
     }
-
 
     
 ```
