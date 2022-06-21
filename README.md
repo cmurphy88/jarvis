@@ -19,8 +19,8 @@ graph TD
     I --- J[Light]
 ```
 
-```mermaid
   ## ERD
+```mermaid
     erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
     CAR {
