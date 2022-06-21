@@ -22,7 +22,7 @@ graph TD
   ## ERD
 ```mermaid
 erDiagram
-    USER ||--|| HOME : has
+    USER }|--|| HOME : has
     USER {
         int user_id
         string first_name
