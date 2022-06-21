@@ -21,15 +21,15 @@ graph TD
 
   ## ERD
 ```mermaid
-    erDiagram
-    USER ||--|| HOME
+erDiagram
+    USER ||--|| HOME :
     USER {
         int user_id
         string first_name
         string last_name
         string email
     }
-    HOME ||--|| USER_HIERARCHY
+    HOME ||--|| USER_HIERARCHY :
     HOME {
         int home_id
         int admin_id
@@ -38,7 +38,7 @@ graph TD
         int home_id
         list user_order
     }
-    HOME ||--|{ ROOM
+    HOME ||--|{ ROOM :
     ROOM{
         int room_id
         int home_id
