@@ -19,7 +19,7 @@ graph TD
     I --- J[Light]
 ```
 
-
+```mermaid
   ## ERD
     erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
@@ -34,3 +34,5 @@ graph TD
         string lastName
         int age
     }
+    
+```
