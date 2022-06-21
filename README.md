@@ -20,7 +20,7 @@ graph TD
 ```
 
 
-  ##ERD
+  ## ERD
     erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
     CAR {
