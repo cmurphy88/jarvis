@@ -39,7 +39,7 @@ erDiagram
         list user_order
     }
     HOME ||--|{ ROOM : contains
-    ROOM{
+    ROOM {
         int room_id
         int home_id
         int routine_id
@@ -86,27 +86,28 @@ erDiagram
         string ip_address
     }
     LIGHT_ROUTINE_SETTING ||--0{ LIGHT : controls
-    LIGHT{
+    LIGHT {
         int light_id
         string ip_address
     }
     ROOM ||--|| CAMERA : has
-    CAMERA{
+    CAMERA {
         int camera_id
         string ip_address
     }
     ROUTINE ||--|{ ROUTINE_TIME_ENTRIES : logs
-    ROUTINE_TIME_ENTRIES{
+    ROUTINE_TIME_ENTRIES {
         int routine_id
         int user_id
         time/date timestamp
     }
     ROUTINE ||--|{ ROUTINE_ALERT : creates
-    ROUTINE_ALERT{
+    ROUTINE_ALERT {
         int alert_id
         string message
         int routine_id
     }
+
 
     
 ```
