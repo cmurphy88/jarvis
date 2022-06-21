@@ -1,5 +1,6 @@
 # jarvis
 
+## Domain Model
 ```mermaid
 graph TD
     A[Admin] ---B[User]
