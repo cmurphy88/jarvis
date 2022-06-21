@@ -18,7 +18,6 @@ graph TD
     H --- K[TRV]
     I --- J[Light]
     
-    
     erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
     CAR {
@@ -32,10 +31,4 @@ graph TD
         string lastName
         int age
     }
-
-
-
-
-
-
 ```
