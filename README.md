@@ -53,6 +53,7 @@ erDiagram
         time end_time
     }
     USER ||--|{ ROUTINE : has
+    
     ROOM ||--0{ SPEAKER_ROUTINE_SETTING : has
     SPEAKER_ROUTINE_SETTING {
         int speaker_routine_id
