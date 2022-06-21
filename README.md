@@ -17,9 +17,10 @@ graph TD
     G --- L[Speaker]
     H --- K[TRV]
     I --- J[Light]
-    ```
-    
-    ```mermaid
+```
+
+
+  ##ERD
     erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
     CAR {
@@ -33,4 +34,3 @@ graph TD
         string lastName
         int age
     }
-```
