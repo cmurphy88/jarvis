@@ -17,7 +17,9 @@ graph TD
     G --- L[Speaker]
     H --- K[TRV]
     I --- J[Light]
+    ```
     
+    ```mermaid
     erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
     CAR {
