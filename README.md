@@ -61,14 +61,14 @@ erDiagram
         int routine_id
         string media_url
     }
-    ROOM ||--0{ TRV_ROUTINE_SETTING : has
+    ROOM ||--o{ TRV_ROUTINE_SETTING : has
     TRV_ROUTINE_SETTING {
         int trv_routine_id
         int trv_id
         int routine_id
         double temperature
     }
-    ROOM ||--0{ LIGHT_ROUTINE_SETTING : has
+    ROOM ||--o{ LIGHT_ROUTINE_SETTING : has
     LIGHT_ROUTINE_SETTING {
         int light_routine_id
         int light_id
@@ -81,12 +81,12 @@ erDiagram
         int speaker_id
         string ip_address
     }
-    TRV_ROUTINE_SETTING ||--0{ TRV : controls
+    TRV_ROUTINE_SETTING ||--o{ TRV : controls
     TRV {
         int trv_id
         string ip_address
     }
-    LIGHT_ROUTINE_SETTING ||--0{ LIGHT : controls
+    LIGHT_ROUTINE_SETTING ||--o{ LIGHT : controls
     LIGHT {
         int light_id
         string ip_address
@@ -108,6 +108,7 @@ erDiagram
         string message
         int routine_id
     }
+
 
     
 ```
