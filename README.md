@@ -25,7 +25,7 @@ graph TD
 
   ## ERD
 ```mermaid
-%%{init: {'theme':'base'}}%%
+%%{init: {'theme':'base', lineColor: 'yellow'}}%%
 erDiagram
     USER {
         int user_id PK
