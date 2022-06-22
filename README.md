@@ -3,20 +3,21 @@
 ## Domain Model
 ```mermaid
 graph TD
-    A[User] --- B[Home]
-    A --- D[Routine]
-    B --- C[User Hierarchy]
-    B --- F[Room]
-    D --- E[Rountine Alert]
-    D --- F
-    D --- N[Rountine Time Entries]
-    F --- G[Speaker Routine Setting]
-    F --- H[TRV Rountine Setting]
-    F --- I[Light Routine Setting]
-    F --- M[Camera]
-    G --- L[Speaker]
+    A[Admin] --- B[User]
+    B --- D[Routine]
+    D --- E[Room]
+    D --- F[Light Routine Setting]
+    D --- G[Speaker Routine Setting]
+    D --- H[TRV Routine Setting]
+    F --- I[Light]
+    G --- J[Speaker]
     H --- K[TRV]
-    I --- J[Light]
+    E --- L[Camera]
+    M[Home] --- E
+    L --- N[Alert]
+    N --- O[Notifications]
+    O --- B
+    B --- M
 ```
 
   ## ERD
