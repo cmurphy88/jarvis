@@ -18,6 +18,9 @@ graph TD
     N --- O[Notifications]
     O --- B
     B --- M
+    P[User Room Hierarchy] --- E
+    Q[Routine Time Entries] --- D
+    P --- B
 ```
 
   ## ERD
