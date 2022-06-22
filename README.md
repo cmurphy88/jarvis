@@ -5,12 +5,13 @@
 graph TD
     A[Admin] --- B[User]
     B --- D[Routine]
+    B --- P
     D --- E[Room]
     D --- F[Light Routine Setting]
-    D --- G[Speaker Routine Setting]
+    D --- G[Media Routine Setting]
     D --- H[TRV Routine Setting]
     F --- I[Light]
-    G --- J[Speaker]
+    G --- J[Media]
     H --- K[TRV]
     E --- L[Camera]
     M[Home] --- E
@@ -20,7 +21,6 @@ graph TD
     B --- M
     P[User Room Hierarchy] --- E
     Q[Routine Time Entries] --- D
-    P --- B
 ```
 
   ## ERD
