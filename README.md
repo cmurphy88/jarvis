@@ -25,6 +25,7 @@ graph TD
 
   ## ERD
 ```mermaid
+%%{init: {'theme':'base'}}%%
 erDiagram
     USER {
         int user_id PK
