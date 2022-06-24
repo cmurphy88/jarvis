@@ -15,6 +15,7 @@ INSERT INTO home_user (home_id, user_id, is_admin)
 INSERT INTO home_user (home_id, user_id, is_admin)
     VALUES (3, 2, FALSE);
 
+
 -- room --
 INSERT INTO room (room_name, home_id)
     VALUES ('Living Room', 1);

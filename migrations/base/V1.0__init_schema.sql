@@ -173,6 +173,7 @@ CREATE TABLE "room_alert"
         REFERENCES room(id)
 );
 
+
 CREATE TABLE room_user_entry
 (
     id          INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
