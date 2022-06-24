@@ -1,87 +1,105 @@
-
--- adding data to the home table --
+-- home --
 INSERT INTO home (home_name) VALUES ('My First Home');
 INSERT INTO home (home_name) VALUES ('My Belfast Home');
-INSERT INTO home (home_name) VALUES ('My Fermanagh Home');
+INSERT INTO home (home_name) VALUES ('My Fermanagh House');
 
--- creating users for the table --
+-- user --
 INSERT INTO "user" (first_name, last_name, email, password)
-    VALUES ('Conor', 'Murphy', 'conormurphy9966@gmail.com', 'password');
+    VALUES ('Conor', 'Murphy', 'conor@g.com', 'password');
 INSERT INTO "user" (first_name, last_name, email, password)
-    VALUES ('Niamh', 'Doherty', 'ndoherty@gmail.com', 'password123');
+    VALUES ('Niamh', 'Doherty', 'niamh@g.com', 'password123');
 
--- home_user table --
+-- home user --
 INSERT INTO home_user (home_id, user_id, is_admin)
-    VALUES (2, 1, TRUE);
+    VALUES (1, 1, TRUE);
 INSERT INTO home_user (home_id, user_id, is_admin)
     VALUES (3, 2, FALSE);
 
--- camera table --
-INSERT INTO camera (ip_address) VALUES ('180.180.443');
-INSERT INTO camera (ip_address) VALUES ('188.190.456');
-
 -- room --
-INSERT INTO room (room_name, home_id, camera_id)
-    VALUES ('Living Room', 2, 1);
-INSERT INTO room (room_name, home_id, camera_id)
-    VALUES ('Kitchen', 2, 2);
+INSERT INTO room (room_name, home_id)
+    VALUES ('Living Room', 1);
+INSERT INTO room (room_name, home_id)
+    VALUES ('Kitchen', 1);
+INSERT INTO room (room_name, home_id)
+    VALUES ('Living Room', 3);
+INSERT INTO room (room_name, home_id)
+    VALUES ('Dining Room', 3);
 
--- user hierarchy --
-INSERT INTO user_hierarchy (room_id, user_id, user_order)
-    VALUES(1, 1, 1);
-INSERT INTO user_hierarchy (room_id, user_id, user_order)
-    VALUES(1, 2, 2);
+-- room user entry --
+INSERT INTO room_user_entry (room_id, user_id)
+    VALUES (1, 1);
+INSERT INTO room_user_entry (room_id, user_id)
+    VALUES (3, 2);
+
+-- room alert --
+INSERT INTO room_alert (message, room_id)
+    VALUES ('Unrecognised face in the Living Room', 1);
+INSERT INTO room_alert (message, room_id)
+    VALUES ('Unrecognised face in the Dining Room', 4);
+
+-- room user hierarchy --
+INSERT INTO room_user_hierarchy (room_id, user_id, user_order)
+    VALUES (1, 1, 1);
+INSERT INTO room_user_hierarchy (room_id, user_id, user_order)
+    VALUES (1, 2, 2);
+
+-- camera --
+INSERT INTO camera (ip_address) VALUES ('123:234:345');
+INSERT INTO camera (ip_address) VALUES ('345:765:231');
+INSERT INTO camera (ip_address) VALUES ('999:888:777');
+
+-- room camera --
+INSERT INTO room_camera (room_id, camera_id)
+    VALUES (1, 1);
+INSERT INTO room_camera (room_id, camera_id)
+    VALUES (2, 3);
+INSERT INTO room_camera (room_id, camera_id)
+    VALUES (3, 2);
 
 -- routine --
 INSERT INTO routine (room_id, user_id, start_time, end_time)
     VALUES (1, 1, '10:00', '10:59');
 INSERT INTO routine (room_id, user_id, start_time, end_time)
-    VALUES (1, 2, '11:00', '11:59');
-
--- media --
-INSERT INTO media (ip_address) VALUES ('180:888:999');
-INSERT INTO media (ip_address) VALUES ('167:344:900');
-
--- media routine setting --
-INSERT INTO media_routine_setting (media_id, routine_id, media_url, is_active, is_playing)
-    VALUES (1, 1, 'google.com', TRUE, FALSE);
-INSERT INTO media_routine_setting (media_id, routine_id, media_url, is_active, is_playing)
-    VALUES (1, 2, 'youtube.com', TRUE, TRUE);
-
--- trv --
-INSERT INTO trv (ip_address) VALUES ('213:456:686');
-INSERT INTO trv (ip_address) VALUES ('456:112:998');
-
--- trv routine settings --
-INSERT INTO trv_routine_setting (trv_id, routine_id, temperature, is_active)
-    VALUES (1, 1, 21, TRUE);
-INSERT INTO trv_routine_setting (trv_id, routine_id, temperature, is_active)
-    VALUES (1, 2, 25, FALSE);
-
--- light --
-INSERT INTO light (ip_address) VALUES ('123:678:987');
-INSERT INTO light (ip_address) VALUES ('321:678:789');
-
--- light routine settings --
-INSERT INTO light_routine_setting (light_id, routine_id, brightness, is_active)
-    VALUES (1, 1, 50, TRUE);
-INSERT INTO light_routine_setting (light_id, routine_id, brightness, is_active)
-    VALUES (1, 2, 80, FALSE);
+    VALUES (3, 2, '12:00', '12:59');
 
 -- routine time entries --
 INSERT INTO routine_time_entries (routine_id, time_entry)
-    VALUES (1, '2022-06-22 19:10:25-07');
+    VALUES (1, '2022-06-24 19:10:25-07');
 INSERT INTO routine_time_entries (routine_id, time_entry)
-    VALUES (1, '2022-06-26 11:10:25-07');
+    VALUES (1, '2022-06-24 10:55:21-07');
 INSERT INTO routine_time_entries (routine_id, time_entry)
-    VALUES (2, '2022-06-20 19:10:25-07');
+    VALUES (2, '2022-06-19 08:57:25-07');
 
--- routine alert --
-INSERT INTO routine_alert (message, routine_id)
-    VALUES ('unrecognised face in the living room', 1);
-INSERT INTO routine_alert (message, routine_id)
-    VALUES ('unrecognised face in the kitchen, would you like to add them to the house?', 2);
+-- media --
+INSERT INTO media (ip_address, is_playing)
+    VALUES ('222:333:444', TRUE);
+INSERT INTO media (ip_address, is_playing)
+    VALUES ('555:444:888', FALSE);
 
+-- media routine setting --
+INSERT INTO media_routine_setting (media_id, routine_id, media_url, is_active)
+    VALUES (1, 1, 'youtube.com/despacito', TRUE);
+INSERT INTO media_routine_setting (media_id, routine_id, media_url, is_active)
+    VALUES (1, 2, 'youtube.com/drake_playlist', TRUE);
 
+-- trv --
+INSERT INTO trv (ip_address) VALUES ('454:545:454');
+INSERT INTO trv (ip_address) VALUES ('777:898:100');
+
+-- trv routine setting --
+INSERT INTO trv_routine_setting (trv_id, routine_id, temperature, is_active)
+    VALUES (1, 1, 24, TRUE);
+iNSERT INTO trv_routine_setting (trv_id, routine_id, temperature, is_active)
+    VALUES (1, 2, 26, TRUE);
+
+-- light --
+INSERT INTO light (ip_address) VALUES ('345:543:345');
+INSERT INTO light (ip_address) VALUES ('111:000:180');
+
+-- light routine setting --
+INSERT INTO light_routine_setting (light_id, routine_id, brightness, is_active)
+    VALUES (1, 1, 80, TRUE);
+INSERT INTO light_routine_setting (light_id, routine_id, brightness, is_active)
+    VALUES (2, 2, 90, TRUE);
 
 
