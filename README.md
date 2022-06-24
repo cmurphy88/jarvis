@@ -28,96 +28,113 @@ graph TD
 %%{init: {'theme': 'forest', 'themeVariables': { 'lineColor': 'white'}}}%%
 erDiagram
     USER {
-        int user_id PK
+        int id PK
         string first_name
         string last_name
         string email
         string password
     }
     HOME {
-        int home_id PK
+        int id PK
         string home_name
     }
     HOME_USER {
-        int home_user_id PK
+        int id PK
         int home_id FK
         int user_id FK
         boolean is_admin
     }
-    USER_HIERARCHY {
-        int user_hierarchy_id PK
+    ROOM_USER_HIERARCHY {
+        int id PK
         int room_id FK
         int user_id FK
         int user_order
     }
     ROOM {
-        int room_id PK
+        int id PK
         string room_name
         int home_id FK
         int camera_id FK
     }
     
     ROUTINE {
-        int routine_id PK
+        int id PK
         int room_id FK
         int user_id FK
         time start_time
         time end_time
     }
     MEDIA_ROUTINE_SETTING {
-        int media_routine_id PK
+        int id PK
         int media_id FK
         int routine_id FK
         string media_url
         boolean is_active
-        boolean is_playing
     }
     TRV_ROUTINE_SETTING {
-        int trv_routine_id PK
+        int id PK
         int trv_id FK
         int routine_id FK
         double temperature
         boolean is_active
     }
     LIGHT_ROUTINE_SETTING {
-        int light_routine_id PK
+        int id PK
         int light_id FK
         int routine_id FK
         int brightness
         boolean is_active
     }
     MEDIA {
-        int media_id PK
+        int id PK
         string ip_address
+        boolean is_playing
     }
     TRV {
-        int trv_id PK
+        int id PK
         string ip_address
     }
     LIGHT {
-        int light_id PK
+        int id PK
         string ip_address
     }
     CAMERA {
-        int camera_id PK
+        int id PK
         string ip_address
     }
     ROUTINE_TIME_ENTRIES {
-        int routine_time_entry_id PK
+        int id PK
         int routine_id FK
         timestamp time_entry
     }
-    ROUTINE_ALERT {
-        int alert_id PK
+    ROOM_ALERT {
+        int id PK
+        int room_id FK
         string message
-        int routine_id FK
+        
+    }
+    ROOM_CAMERA {
+        int id PK
+        int room_id FK
+        int camera_id FK
+
+    }
+    ROOM_USER_ENTRY {
+        int id PK
+        int room_id FK
+        int user_id FK
     }
     HOME ||--|{ HOME_USER : has
-    ROOM ||--|| CAMERA : has
+    ROOM_ALERT }|--|| ROOM : creates
+    ROOM ||--|| ROOM_USER_ENTRY : has
+    USER ||--|| ROOM_USER_ENTRY : has
+    ROOM ||--|{ ROOM_CAMERA : has
+    CAMERA ||--|| ROOM_CAMERA : has
     HOME_USER }|--|| USER : has
-    USER ||--|{ USER_HIERARCHY : has
+    USER ||--|{ ROOM_USER_HIERARCHY : has
     
-    ROOM ||--|{ USER_HIERARCHY : contains
+    ROOM ||--|{ ROOM_USER_HIERARCHY : contains
+    
     HOME ||--|{ ROOM : contains 
     
     ROUTINE }|--|| ROOM : partOf
@@ -131,6 +148,6 @@ erDiagram
     LIGHT_ROUTINE_SETTING }|--|| LIGHT : controls  
       
     ROUTINE ||--|{ ROUTINE_TIME_ENTRIES : logs 
-    ROUTINE ||--|{ ROUTINE_ALERT : creates
+    
     
 ```
