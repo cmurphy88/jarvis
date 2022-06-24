@@ -21,7 +21,6 @@ graph TD
     B --- M
     P[User Room Hierarchy] --- E
     Q[Routine Time Entries] --- D
-    R --- N
 ```
 
   ## ERD
