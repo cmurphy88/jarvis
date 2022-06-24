@@ -54,7 +54,6 @@ erDiagram
         int id PK
         string room_name
         int home_id FK
-        int camera_id FK
     }
     
     ROUTINE {
@@ -82,7 +81,6 @@ erDiagram
         int id PK
         int light_id FK
         int routine_id FK
-        int brightness
         boolean is_active
     }
     MEDIA {
@@ -148,6 +146,5 @@ erDiagram
     LIGHT_ROUTINE_SETTING }|--|| LIGHT : controls  
       
     ROUTINE ||--|{ ROUTINE_TIME_ENTRIES : logs 
-    
     
 ```
