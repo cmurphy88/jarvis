@@ -103,4 +103,16 @@ INSERT INTO light_routine_setting (light_id, routine_id, brightness, is_active)
 INSERT INTO light_routine_setting (light_id, routine_id, brightness, is_active)
     VALUES (2, 2, 90, TRUE);
 
+-- media room --
+INSERT INTO media_room (media_id, room_id) VALUES (1, 1);
+INSERT INTO media_room (media_id, room_id) VALUES (2, 2);
+
+-- trv room --
+INSERT INTO trv_room (trv_id, room_id) VALUES (1, 1);
+INSERT INTO trv_room (trv_id, room_id) VALUES (2, 2);
+
+-- light room --
+INSERT INTO light_room (light_id, room_id) VALUES (1, 1);
+INSERT INTO light_room (light_id, room_id) VALUES (2, 2);
+
 

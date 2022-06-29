@@ -184,5 +184,43 @@ CREATE TABLE room_user_entry
         REFERENCES room(id),
     CONSTRAINT fk_room_user_entry_user_id FOREIGN KEY (user_id)
         REFERENCES "user"(id)
-)
+);
+
+
+CREATE TABLE media_room
+(
+    id          INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    media_id    INT,
+    room_id     INT,
+
+    CONSTRAINT fk_media_room_media_id FOREIGN KEY (media_id)
+        REFERENCES media(id),
+    CONSTRAINT fk_media_room_room_id FOREIGN KEY (room_id)
+        REFERENCES room(id)
+);
+
+
+CREATE TABLE trv_room
+(
+    id          INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    trv_id      INT,
+    room_id     INT,
+
+    CONSTRAINT fk_trv_room_trv_id FOREIGN KEY (trv_id)
+        REFERENCES trv(id),
+    CONSTRAINT fk_trv_room_room_id FOREIGN KEY (room_id)
+        REFERENCES room(id)
+);
+
+CREATE TABLE light_room
+(
+    id          INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    light_id    INT,
+    room_id     INT,
+
+    CONSTRAINT fk_light_room_light_id FOREIGN KEY (light_id)
+        REFERENCES light(id),
+    CONSTRAINT fk_light_room_room_id FOREIGN KEY (room_id)
+        REFERENCES room(id)
+);
 
