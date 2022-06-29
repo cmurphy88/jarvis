@@ -124,8 +124,8 @@ erDiagram
     }
     HOME ||--|{ HOME_USER : has
     ROOM_ALERT }|--|| ROOM : creates
-    ROOM ||--|| ROOM_USER_ENTRY : has
     USER ||--|| ROOM_USER_ENTRY : has
+    ROOM ||--|| ROOM_USER_ENTRY : has
     ROOM ||--|{ ROOM_CAMERA : has
     CAMERA ||--|| ROOM_CAMERA : has
     HOME_USER }|--|| USER : has
