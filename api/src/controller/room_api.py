@@ -24,13 +24,30 @@ def get_room(id):
 
 
 @app.route('/rooms/<id>', methods=['PUT'])
-def update_room():
+def update_room(id):
+    room_id = id
     return jsonify({'result': 'room details updates successfully'})
 
 
-@app.route('/rooms/<id>', methods=['DELETE'])
-def delete_room():
-    return jsonify({'result': 'room has been deleted successfully'})
+@app.route('/rooms/<id>', methods=['POST'])
+def add_user_room(id):
+    room_id = id
+    return jsonify([
+        {'room_id': room_id},
+        {'result': 'user added to the room'}
+    ])
+
+
+@app.route('/rooms/<id>/routines', methods=['GET'])
+def get_room_routine(id):
+    room_id = id
+    return jsonify({'routine_id': '23'},
+                   {'user_id': '564'},
+                   {'temperature': '50'},
+                   {'media': 'https://youtube.com'},
+                   {'light': '80'},
+                   {'start_time': '10:00'},
+                   {'end_time': '10:59'})
 
 
 app.run()
