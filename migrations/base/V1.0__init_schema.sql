@@ -5,7 +5,7 @@ CREATE TABLE home
 );
 
 
-CREATE TABLE "user"
+CREATE TABLE "users"
 (
     id         INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     first_name      VARCHAR(30),
@@ -24,7 +24,7 @@ CREATE TABLE "home_user"
     CONSTRAINT fk_home_user_home_id FOREIGN KEY (home_id)
         REFERENCES home(id),
     CONSTRAINT fk_home_user_user_id FOREIGN KEY (user_id)
-        REFERENCES "user"(id)
+        REFERENCES "users"(id)
 );
 
 
@@ -68,7 +68,7 @@ CREATE TABLE "room_user_hierarchy"
     CONSTRAINT fk_user_hierarchy_room_room_id FOREIGN KEY (room_id)
         REFERENCES room(id),
     CONSTRAINT fk_user_hierarchy_user_user_id FOREIGN KEY (user_id)
-        REFERENCES "user"(id)
+        REFERENCES "users"(id)
 );
 
 
@@ -104,7 +104,7 @@ CREATE TABLE "routine"
     CONSTRAINT fk_routine_room_room_id FOREIGN KEY (room_id)
         REFERENCES room(id),
     CONSTRAINT fk_routine_user_user_id FOREIGN KEY (user_id)
-        REFERENCES "user"(id)
+        REFERENCES "users"(id)
 );
 
 
@@ -183,7 +183,7 @@ CREATE TABLE room_user_entry
     CONSTRAINT fk_room_user_entry_room_id FOREIGN KEY (room_id)
         REFERENCES room(id),
     CONSTRAINT fk_room_user_entry_user_id FOREIGN KEY (user_id)
-        REFERENCES "user"(id)
+        REFERENCES "users"(id)
 );
 
 

@@ -4,9 +4,9 @@ INSERT INTO home (home_name) VALUES ('My Belfast Home');
 INSERT INTO home (home_name) VALUES ('My Fermanagh House');
 
 -- user --
-INSERT INTO "user" (first_name, last_name, email, password)
+INSERT INTO "users" (first_name, last_name, email, password)
     VALUES ('Conor', 'Murphy', 'conor@g.com', 'password');
-INSERT INTO "user" (first_name, last_name, email, password)
+INSERT INTO "users" (first_name, last_name, email, password)
     VALUES ('Niamh', 'Doherty', 'niamh@g.com', 'password123');
 
 -- home user --
