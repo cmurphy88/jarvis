@@ -26,6 +26,15 @@ from api.home.models import Home
 from api.room.models import Room
 from api.routine.models import Routine
 from api.camera.models import Camera
+from api.media.models import Media
+from api.trv.models import Trv
+from api.media_room.models import MediaRoom
+from api.trv_room.models import TrvRoom
+from api.light_room.models import LightRoom
+from api.light.models import Light
+from api.media_routine_setting.models import MediaRoutineSetting
+from api.trv_routine_setting.models import TrvRoutineSetting
+from api.light_routine_setting.models import LightRoutineSetting
 
 target_metadata = Base.metadata
 

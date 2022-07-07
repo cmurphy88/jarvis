@@ -16,5 +16,3 @@ class DisplayUser(BaseModel):
 
     class Config:
         orm_mode = True
-
-

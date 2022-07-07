@@ -6,7 +6,6 @@ from . import models
 from api.users.models import User
 
 
-
 async def new_home_register(request, database) -> models.Home:
     new_home = models.Home(name=request.name)
     database.add(new_home)

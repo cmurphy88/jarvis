@@ -16,3 +16,6 @@ class DisplayRoutine(BaseModel):
     user_id: int
     start_time: str
     end_time: str
+
+    class Config:
+        orm_mode = True

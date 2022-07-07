@@ -16,6 +16,9 @@ class Routine(Base):
 
     room = relationship("Room", back_populates="routine")
     users = relationship("User", back_populates="routine")
+    media_routine_settings = relationship("MediaRoutineSetting")
+    trv_routine_settings = relationship("TrvRoutineSetting")
+    light_routine_settings = relationship("LightRoutineSetting")
 
     def __init__(self, room_id, user_id, start_time, end_time, *args, **kwargs):
         self.room_id = room_id
