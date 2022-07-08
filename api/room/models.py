@@ -13,6 +13,8 @@ class Room(Base):
 
     home = relationship("Home", back_populates="room")
     routine = relationship("Routine", back_populates="room")
+    # room_alert = relationship("RoomAlert")
+    # room_user_entry = relationship("RoomUserEntry")
 
     def __init__(self, name, home_id, *args, **kwargs):
         self.name = name

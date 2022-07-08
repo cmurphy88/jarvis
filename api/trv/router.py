@@ -29,3 +29,8 @@ async def create_trv_registration(request: schema.Trv, database: Session = Depen
 @router.get('/', response_model=List[schema.DisplayTrv])
 async def get_all_trvs(database: Session = Depends(db.get_db)):
     return await services.all_trv(database)
+
+
+@router.delete('/{trv_id}', status_code=status.HTTP_204_NO_CONTENT, response_class=Response)
+async def delete_trv_by_id(trv_id: int, database: Session = Depends(db.get_db)):
+    return await services.delete_trv_by_id(trv_id, database)

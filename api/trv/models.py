@@ -11,7 +11,7 @@ class Trv(Base):
     name = Column(String(50))
     ip_address = Column(String(50))
 
-    trv_routine_settings = relationship("Trv")
+    # trv_routine_settings = relationship("Trv")
 
     # room = relationship("Room", back_populates="home")
     # home_user = relationship("HomeUser", back_populates="home")

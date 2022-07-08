@@ -29,3 +29,8 @@ async def create_light_registration(request: schema.Light, database: Session = D
 @router.get('/', response_model=List[schema.DisplayLight])
 async def get_all_lights(database: Session = Depends(db.get_db)):
     return await services.all_light(database)
+
+
+@router.delete('/{light_id}', status_code=status.HTTP_204_NO_CONTENT, response_class=Response)
+async def delete_light_by_id(light_id: int, database: Session = Depends(db.get_db)):
+    return await services.delete_light_by_id(light_id, database)

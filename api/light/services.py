@@ -18,3 +18,8 @@ async def all_light(database) -> List[models.Light]:
     lights = database.query(models.Light).all()
     return lights
 
+
+async def delete_light_by_id(light_id, database):
+    database.query(models.Light).filter(models.Light.id == light_id).delete()
+    database.commit()
+

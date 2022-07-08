@@ -1,7 +1,7 @@
 -- home --
-INSERT INTO home (home_name) VALUES ('My First Home');
-INSERT INTO home (home_name) VALUES ('My Belfast Home');
-INSERT INTO home (home_name) VALUES ('My Fermanagh House');
+INSERT INTO home (name) VALUES ('My First Home');
+INSERT INTO home (name) VALUES ('My Belfast Home');
+INSERT INTO home (name) VALUES ('My Fermanagh House');
 
 -- user --
 INSERT INTO "users" (first_name, last_name, email, password)
@@ -17,13 +17,13 @@ INSERT INTO home_user (home_id, user_id, is_admin)
 
 
 -- room --
-INSERT INTO room (room_name, home_id)
+INSERT INTO room (name, home_id)
     VALUES ('Living Room', 1);
-INSERT INTO room (room_name, home_id)
+INSERT INTO room (name, home_id)
     VALUES ('Kitchen', 1);
-INSERT INTO room (room_name, home_id)
+INSERT INTO room (name, home_id)
     VALUES ('Living Room', 3);
-INSERT INTO room (room_name, home_id)
+INSERT INTO room (name, home_id)
     VALUES ('Dining Room', 3);
 
 -- room user entry --

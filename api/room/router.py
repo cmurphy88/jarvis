@@ -4,6 +4,12 @@ from sqlalchemy.orm import Session
 from api import db
 from . import schema
 from . import services
+from api.media.schema import Media
+from api.media_room.schema import MediaRoom
+from api.trv_room.schema import TrvRoom
+from api.light_room.schema import LightRoom
+from api.room_user_entry.schema import RoomUserEntry
+from api.routine.schema import DisplayRoutine
 
 router = APIRouter(tags=['Rooms'], prefix='/rooms')
 
@@ -32,3 +38,28 @@ async def get_room_by_id(room_id: int, database: Session = Depends(db.get_db)):
 @router.delete('/{room_id}', status_code=status.HTTP_204_NO_CONTENT, response_class=Response)
 async def delete_room_by_id(room_id: int, database: Session = Depends(db.get_db)):
     return await services.delete_room_by_id(room_id, database)
+
+
+@router.post('/{room_id}/medias', status_code=status.HTTP_201_CREATED)
+async def add_media_to_room(request: MediaRoom, database: Session = Depends(db.get_db)):
+    return await services.add_media_to_room(request, database)
+
+
+@router.post('/{room_id}/trvs', status_code=status.HTTP_201_CREATED)
+async def add_trv_to_room(request: TrvRoom, database: Session = Depends(db.get_db)):
+    return await services.add_trv_to_room(request, database)
+
+
+@router.post('/{room_id}/lights', status_code=status.HTTP_201_CREATED)
+async def add_light_to_room(request: LightRoom, database: Session = Depends(db.get_db)):
+    return await services.add_light_to_room(request, database)
+
+
+@router.post('/{room_id}/users', status_code=status.HTTP_201_CREATED)
+async def add_user_to_room(request: RoomUserEntry, database: Session = Depends(db.get_db)):
+    return await services.add_user_to_room(request, database)
+
+
+@router.get('/{room_id}/routines', response_model=List[DisplayRoutine])
+async def get_room_routines(room_id: int, database: Session = Depends(db.get_db)):
+    return await services.get_all_room_routines(room_id, database)

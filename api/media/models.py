@@ -12,7 +12,7 @@ class Media(Base):
     ip_address = Column(String(50))
     is_playing = Column(Boolean)
 
-    media_routine_setting = relationship("MediaRoutineSetting")
+    # media_routine_setting = relationship("MediaRoutineSetting")
 
     def __init__(self, name, ip_address, is_playing, *args, **kwargs):
         self.name = name

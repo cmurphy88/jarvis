@@ -7,6 +7,7 @@ from api import db
 from . import schema
 from . import services
 from . import validator
+from api.routine.schema import DisplayRoutine
 
 
 router = APIRouter(tags=['Users'], prefix='/users')
@@ -39,3 +40,8 @@ async def get_user_by_id(user_id: int, database: Session = Depends(db.get_db)):
 @router.delete('/{user_id}', status_code=status.HTTP_204_NO_CONTENT, response_class=Response)
 async def delete_user_by_id(user_id: int, database: Session = Depends(db.get_db)):
     return await services.delete_user_by_id(user_id, database)
+
+
+@router.get('/{user_id}/routines', response_model=List[DisplayRoutine])
+async def get_user_routines(user_id: int, database: Session = Depends(db.get_db)):
+    return await services.get_all_user_routines(user_id, database)

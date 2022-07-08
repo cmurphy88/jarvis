@@ -17,3 +17,8 @@ async def new_media_register(request, database) -> models.Media:
 async def all_media(database) -> List[models.Media]:
     medias = database.query(models.Media).all()
     return medias
+
+
+async def delete_media_by_id(media_id, database):
+    database.query(models.Media).filter(models.Media.id == media_id).delete()
+    database.commit()

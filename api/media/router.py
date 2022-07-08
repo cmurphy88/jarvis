@@ -29,3 +29,8 @@ async def create_media_registration(request: schema.Media, database: Session = D
 @router.get('/', response_model=List[schema.DisplayMedia])
 async def get_all_medias(database: Session = Depends(db.get_db)):
     return await services.all_media(database)
+
+
+@router.delete('/{media_id}', status_code=status.HTTP_204_NO_CONTENT, response_class=Response)
+async def delete_media_by_id(media_id: int, database: Session = Depends(db.get_db)):
+    return await services.delete_media_by_id(media_id, database)

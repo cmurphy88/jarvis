@@ -17,3 +17,8 @@ async def new_trv_register(request, database) -> models.Trv:
 async def all_trv(database) -> List[models.Trv]:
     trvs = database.query(models.Trv).all()
     return trvs
+
+
+async def delete_trv_by_id(trv_id, database):
+    database.query(models.Trv).filter(models.Trv.id == trv_id).delete()
+    database.commit()

@@ -49,3 +49,5 @@ async def add_user_to_home(request: schema.HomeUser, database: Session = Depends
 @router.get('/{home_id}/users', response_model=List[DisplayUser])
 async def get_user_home(home_id: int, database: Session = Depends(db.get_db)):
     return await services.get_all_home_users(home_id, database)
+
+

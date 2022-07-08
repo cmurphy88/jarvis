@@ -1,7 +1,7 @@
 CREATE TABLE home
 (
     id     INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    home_name   VARCHAR(30)
+    name   VARCHAR(30)
 );
 
 
@@ -38,7 +38,7 @@ CREATE TABLE "camera"
 CREATE TABLE "room"
 (
     id     INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    room_name   VARCHAR(30),
+    name   VARCHAR(30),
     home_id     INT,
 
     CONSTRAINT fk_room_home_home_id FOREIGN KEY (home_id)

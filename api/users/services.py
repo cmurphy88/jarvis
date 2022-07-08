@@ -2,6 +2,7 @@ from typing import List, Optional
 
 from fastapi import HTTPException, status
 from . import models
+from api.routine.models import Routine
 
 
 async def new_user_register(request, database) -> models.User:
@@ -28,3 +29,11 @@ async def get_user_by_id(user_id, database) -> Optional[models.User]:
 async def delete_user_by_id(user_id, database):
     database.query(models.User).filter(models.User.id == user_id).delete()
     database.commit()
+
+
+async def get_all_user_routines(user_id, database) -> List[Routine]:
+    routine_info = database.query(Routine).filter(Routine.user_id == user_id).all()
+    routine_list = list()
+    for x in routine_info:
+        routine_list.append(x)
+    return routine_list

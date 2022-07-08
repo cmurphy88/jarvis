@@ -15,8 +15,9 @@ class User(Base):
     email = Column(String(255), unique=True)
     password = Column(String(255))
 
-    routine = relationship("Routine", back_populates="users")
-    home_user = relationship("HomeUser", back_populates="users")
+    routine = relationship("Routine")
+    home_user = relationship("HomeUser")
+    # room_user_entry = relationship("RoomUserEntry")
 
     def __init__(self, first_name, last_name, email, password, *args, **kwargs):
         self.first_name = first_name
