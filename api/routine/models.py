@@ -11,8 +11,8 @@ class Routine(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     room_id = Column(Integer, ForeignKey('room.id', ondelete="CASCADE"))
     user_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"))
-    start_time = Column(String(50))
-    end_time = Column(String(50))
+    start_time = Column(Time)
+    end_time = Column(Time)
 
     room = relationship("Room", back_populates="routine")
     users = relationship("User", back_populates="routine")

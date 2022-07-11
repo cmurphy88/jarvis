@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-import jwt
+from jose import JWTError, jwt
 
 from api.auth import schema
 
@@ -27,7 +27,7 @@ def verify_token(token: str, credentials_exception):
             raise credentials_exception
         token_data = schema.TokenData(email=email)
         return token_data
-    except jwt.JWTError:
+    except JWTError:
         raise credentials_exception
 
 
@@ -41,4 +41,3 @@ def get_current_user(data: str = Depends(oauth2_scheme)):
         headers={"WWW-Authenticate": "Bearer"},
     )
     return verify_token(data, credentials_exception)
-
