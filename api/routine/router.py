@@ -8,6 +8,7 @@ from api.users.schema import User
 # from api.auth.jwt import get_current_user
 from . import schema
 from . import services
+from api.trv.schema import TrvRoutineSetting
 from api.users.schema import DisplayUser
 
 router = APIRouter(tags=['Routines'], prefix='/routines')

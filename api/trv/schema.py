@@ -23,8 +23,8 @@ class TrvRoom(BaseModel):
 class TrvRoutineSetting(BaseModel):
     trv_id: int
     routine_id: int
-    media_url: str
-    is_playing: StrictBool
+    temperature: int
+    is_active: StrictBool
 
 
 class DisplayTrvRoutineSetting(BaseModel):

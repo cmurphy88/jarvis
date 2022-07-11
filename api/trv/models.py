@@ -37,19 +37,19 @@ class TrvRoom(Base):
 
 
 class TrvRoutineSetting(Base):
-    __tablename__ = "trv_routine_settings"
+    __tablename__ = "trv_routine_setting"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     trv_id = Column(Integer, ForeignKey('trv.id'))
     routine_id = Column(Integer, ForeignKey('routine.id'))
-    media_url = Column(String(250))
+    temperature = Column(Integer)
     is_active = Column(Boolean)
 
     trv = relationship("Trv")
     routines = relationship("Routine")
 
-    def __init__(self, trv_id, routine_id, media_url, is_active, *args, **kwargs):
+    def __init__(self, trv_id, routine_id, temperature, is_active, *args, **kwargs):
         self.trv_id = trv_id
         self.routine_id = routine_id
-        self.media_url = media_url
+        self.temperature = temperature
         self.is_active = is_active

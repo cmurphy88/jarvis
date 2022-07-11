@@ -22,3 +22,14 @@ async def all_trv(database) -> List[models.Trv]:
 async def delete_trv_by_id(trv_id, database):
     database.query(models.Trv).filter(models.Trv.id == trv_id).delete()
     database.commit()
+
+
+async def add_trv_settings(request, database) -> models.TrvRoutineSetting:
+    new_trv_settings = models.TrvRoutineSetting(trv_id=request.trv_id,
+                                                routine_id=request.routine_id,
+                                                temperature=request.temperature,
+                                                is_active=request.is_active)
+    database.add(new_trv_settings)
+    database.commit()
+    database.refresh(new_trv_settings)
+    return new_trv_settings

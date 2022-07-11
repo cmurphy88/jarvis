@@ -38,7 +38,7 @@ class LightRoutineSetting(Base):
     media_url = Column(String(250))
     is_active = Column(Boolean)
 
-    lights = relationship("light")
+    lights = relationship("Light")
     routines = relationship("Routine")
 
     def __init__(self, light_id, routine_id, media_url, is_active, *args, **kwargs):

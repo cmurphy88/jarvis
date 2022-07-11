@@ -34,8 +34,6 @@ class RoutineTimeEntries(Base):
     routine_id = Column(Integer, ForeignKey('routine.id'))
     timestamp = Column(TIMESTAMP)
 
-    rooms = relationship("Room")
-    users = relationship("User")
 
     def __init__(self, routine_id, timestamp, *args, **kwargs):
         self.routine_id = routine_id
