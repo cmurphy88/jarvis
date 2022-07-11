@@ -19,3 +19,37 @@ class Trv(Base):
     def __init__(self, name, ip_address, *args, **kwargs):
         self.name = name
         self.ip_address = ip_address
+
+
+class TrvRoom(Base):
+    __tablename__ = "trv_room"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    trv_id = Column(Integer, ForeignKey('trv.id'))
+    room_id = Column(Integer, ForeignKey('room.id'))
+
+    trvs = relationship("Trv")
+    rooms = relationship("Room")
+
+    def __init__(self, trv_id, room_id, *args, **kwargs):
+        self.trv_id = trv_id
+        self.room_id = room_id
+
+
+class TrvRoutineSetting(Base):
+    __tablename__ = "trv_routine_settings"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    trv_id = Column(Integer, ForeignKey('trv.id'))
+    routine_id = Column(Integer, ForeignKey('routine.id'))
+    media_url = Column(String(250))
+    is_active = Column(Boolean)
+
+    trv = relationship("Trv")
+    routines = relationship("Routine")
+
+    def __init__(self, trv_id, routine_id, media_url, is_active, *args, **kwargs):
+        self.trv_id = trv_id
+        self.routine_id = routine_id
+        self.media_url = media_url
+        self.is_active = is_active

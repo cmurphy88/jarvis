@@ -1,10 +1,10 @@
 from typing import List, Optional
 from fastapi import HTTPException, status
 from . import models
-from api.media_room.models import MediaRoom
-from api.trv_room.models import TrvRoom
-from api.light_room.models import LightRoom
-from api.room_user_entry.models import RoomUserEntry
+from api.media.models import MediaRoom
+from api.trv.models import TrvRoom
+from api.light.models import LightRoom
+from api.room.models import RoomUserEntry
 from api.routine.models import Routine
 
 

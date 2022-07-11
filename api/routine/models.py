@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Text, ForeignKey, Time
+from sqlalchemy import Column, Integer, String, Float, Text, ForeignKey, Time, TIMESTAMP
 
 from sqlalchemy.orm import relationship
 
@@ -25,4 +25,19 @@ class Routine(Base):
         self.user_id = user_id
         self.start_time = start_time
         self.end_time = end_time
+
+
+class RoutineTimeEntries(Base):
+    __tablename__ = "routine_time_entries"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    routine_id = Column(Integer, ForeignKey('routine.id'))
+    timestamp = Column(TIMESTAMP)
+
+    rooms = relationship("Room")
+    users = relationship("User")
+
+    def __init__(self, routine_id, timestamp, *args, **kwargs):
+        self.routine_id = routine_id
+        self.timestamp = timestamp
 

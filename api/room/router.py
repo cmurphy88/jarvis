@@ -5,10 +5,11 @@ from api import db
 from . import schema
 from . import services
 from api.media.schema import Media
-from api.media_room.schema import MediaRoom
-from api.trv_room.schema import TrvRoom
-from api.light_room.schema import LightRoom
-from api.room_user_entry.schema import RoomUserEntry
+# from api.media_room.schema import MediaRoom
+from api.media.schema import MediaRoom
+from api.trv.schema import TrvRoom
+from api.light.schema import LightRoom
+from api.room.schema import RoomUserEntry
 from api.routine.schema import DisplayRoutine
 
 router = APIRouter(tags=['Rooms'], prefix='/rooms')

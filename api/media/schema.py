@@ -15,3 +15,26 @@ class DisplayMedia(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class MediaRoom(BaseModel):
+    media_id: int
+    room_id: int
+
+
+class MediaRoutineSetting(BaseModel):
+    media_id: int
+    routine_id: int
+    media_url: str
+    is_playing: StrictBool
+
+
+class DisplayMediaRoutineSetting(BaseModel):
+    id: int
+    media_id: int
+    routine_id: int
+    media_url: str
+    is_playing: StrictBool
+
+    class Config:
+        orm_mode = True

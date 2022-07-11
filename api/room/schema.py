@@ -13,3 +13,20 @@ class DisplayRoom(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class RoomAlert(BaseModel):
+    room_id: int
+    message: str
+
+
+class RoomUserHierarchy(BaseModel):
+    room_id: int
+    user_id: int
+    user_order: int
+
+
+class RoomUserEntry(BaseModel):
+    room_id: int
+    user_id: int
+
