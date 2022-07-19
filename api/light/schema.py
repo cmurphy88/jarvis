@@ -18,6 +18,12 @@ class LightRoom(BaseModel):
     room_id: int
 
 
+class DisplayLightRoom(BaseModel):
+    id: int
+    light_id: int
+    room_id: int
+
+
 class LightRoutineSetting(BaseModel):
     light_id: int
     routine_id: int
