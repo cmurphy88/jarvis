@@ -1,4 +1,4 @@
-from pydantic import BaseModel, constr, EmailStr, validate_email
+from pydantic import BaseModel, constr, EmailStr
 
 
 class User(BaseModel):
@@ -16,3 +16,8 @@ class DisplayUser(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class AuthUser(BaseModel):
+    id: int
+    email: EmailStr

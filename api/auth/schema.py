@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class Login(BaseModel):
     username: str
     password: str
-    grant_type: str = "password"
+    # grant_type: str = "password"
 
 
 class Token(BaseModel):
