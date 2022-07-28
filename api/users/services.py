@@ -19,8 +19,19 @@ async def all_users(database) -> List[models.User]:
     return users
 
 
-async def get_user_by_id(user_id, database) -> Optional[models.User]:
-    user_info = database.query(models.User).get(user_id)
+async def get_user_by_id(user_id, database) -> models.User:
+    return get_user(user_id, database)
+
+
+async def get_user_by_email(email, database) -> models.User:
+    user_info = database.query(models.User).filter(models.User.email == email).first()
+    if not user_info:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Data not found !")
+    return user_info
+
+
+def get_user(field, database) -> Optional[models.User]:
+    user_info = database.query(models.User).get(field)
     if not user_info:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Data not found !")
     return user_info
