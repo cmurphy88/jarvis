@@ -4,6 +4,7 @@ from fastapi import HTTPException, status
 from . import models
 # from . models import HomeUser
 from api.users.models import User
+from .models import Home
 
 
 async def new_home_register(request, database) -> models.Home:
@@ -46,3 +47,12 @@ async def get_all_home_users(home_id, database) -> List[User]:
     for x in home_users:
         user_list.append(x.users)
     return user_list
+
+
+async def get_all_users_homes(user_id, database) -> List[Home]:
+    homes = database.query(models.HomeUser).filter(models.HomeUser.user_id == user_id).all()
+    home_list = list()
+
+    for x in homes:
+        home_list.append(x.home)
+    return home_list
