@@ -5,7 +5,7 @@ from . import models
 # from . models import HomeUser
 from api.users.models import User
 from .models import Home
-
+from ..room.models import Room
 
 async def new_home_register(request, database) -> models.Home:
     new_home = models.Home(name=request.name)
@@ -56,3 +56,12 @@ async def get_all_users_homes(user_id, database) -> List[Home]:
     for x in homes:
         home_list.append(x.home)
     return home_list
+
+
+async def get_all_home_rooms(home_id, database) -> List[Room]:
+    rooms = database.query(Room).filter(Room.home_id == home_id).all()
+    room_list = list()
+
+    for x in rooms:
+        room_list.append(x)
+    return room_list

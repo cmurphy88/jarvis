@@ -8,6 +8,7 @@ from . import services
 from . import validator
 from api.users.schema import DisplayUser
 from .schema import DisplayHome
+from ..room.schema import DisplayRoom
 
 router = APIRouter(tags=['Homes'], prefix='/homes')
 
@@ -57,3 +58,6 @@ async def get_all_users_homes(user_id: int, database: Session = Depends(db.get_d
     return await services.get_all_users_homes(user_id, database)
 
 
+@router.get('/{home_id}/rooms', response_model=List[DisplayRoom])
+async def get_all_home_rooms(home_id: int, database: Session = Depends(db.get_db)):
+    return await services.get_all_home_rooms(home_id, database)
