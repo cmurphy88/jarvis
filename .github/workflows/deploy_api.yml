@@ -9,7 +9,7 @@ on:
 
 defaults:
  run:
-  working-directory: ./api/container.template.json
+  working-directory: .api/
 
 jobs:
   deploy:
