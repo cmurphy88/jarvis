@@ -11,7 +11,7 @@ CREATE TABLE "users"
     first_name      VARCHAR(30),
     last_name       VARCHAR(30),
     email           VARCHAR(50),
-    password        VARCHAR(30)
+    password        VARCHAR(255)
 );
 
 
@@ -96,6 +96,7 @@ CREATE TABLE "light"
 CREATE TABLE "routine"
 (
     id              INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name            VARCHAR(50),
     room_id         INT,
     user_id         INT,
     start_time      TIME,

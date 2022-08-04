@@ -58,10 +58,10 @@ INSERT INTO room_camera (room_id, camera_id)
     VALUES (3, 2);
 
 -- routine --
-INSERT INTO routine (room_id, user_id, start_time, end_time)
-    VALUES (1, 1, '10:00', '10:59');
-INSERT INTO routine (room_id, user_id, start_time, end_time)
-    VALUES (3, 2, '12:00', '12:59');
+INSERT INTO routine (room_id, name,  user_id, start_time, end_time)
+    VALUES (1, 'Morning Tunes', 1, '10:00', '10:59');
+INSERT INTO routine (room_id, name,  user_id, start_time, end_time)
+    VALUES (3, 'Tunes', 2, '12:00', '12:59');
 
 -- routine time entries --
 INSERT INTO routine_time_entries (routine_id, time_entry)
