@@ -7,7 +7,7 @@ WORKDIR /api
 
 COPY . .
 
-RUN pip install
+RUN pip install pip
 
 ARG API_DB_URL
 ENV DATABASE_URL=$API_DB_URL
