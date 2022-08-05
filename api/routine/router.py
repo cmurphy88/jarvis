@@ -39,7 +39,7 @@ async def delete_routine_by_id(routine_id: int, database: Session = Depends(db.g
     return await services.delete_routine_by_id(routine_id, database)
 
 
-@router.get('/{routine_id}/info', response_model=schema.ShowRoutineInfo)
+@router.get('/{routine_id}', response_model=schema.ShowRoutineInfo)
 async def show_routine_info(routine_id: int, database: Session = Depends(db.get_db),
                             current_user: User = Depends(get_current_user)):
     show_routine = await services.show_routine_info(routine_id, database)
