@@ -9,6 +9,7 @@ class Routine(Base):
     __tablename__ = "routine"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String),
     room_id = Column(Integer, ForeignKey('room.id', ondelete="CASCADE"))
     user_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"))
     start_time = Column(Time)

@@ -30,12 +30,12 @@ class LightRoom(Base):
 
 
 class LightRoutineSetting(Base):
-    __tablename__ = "light_routine_settings"
+    __tablename__ = "light_routine_setting"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     light_id = Column(Integer, ForeignKey('light.id'))
     routine_id = Column(Integer, ForeignKey('routine.id'))
-    media_url = Column(String(250))
+    brightness = Column(Integer)
     is_active = Column(Boolean)
 
     lights = relationship("Light")

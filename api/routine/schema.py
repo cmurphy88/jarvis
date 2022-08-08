@@ -15,7 +15,10 @@ class TrvSettings(BaseModel):
 
 class LightSettings(BaseModel):
     id: int
+    name: str
     brightness: int
+    is_active: StrictBool
+
 
 
 class MediaSettings(BaseModel):
@@ -36,6 +39,7 @@ class Routine(BaseModel):
 class DisplayRoutine(BaseModel):
     id: int
     room_id: int
+    name: str
     user_id: int
     start_time: time
     end_time: time
@@ -50,7 +54,40 @@ class RoutineTimeEntries(BaseModel):
     user_order: int
 
 
+class LightRoutineSetting(BaseModel):
+    id: int
+    light_id: int
+    routine_id: int
+    brightness: int
+    is_playing: StrictBool
+
+    class Config:
+        orm_mode = True
+
+
 class TrvRoutineSetting(BaseModel):
+    id: int
+    light_id: int
+    routine_id: int
+    temperature: int
+    is_playing: StrictBool
+
+    class Config:
+        orm_mode = True
+
+
+class MediaRoutineSetting(BaseModel):
+    id: int
+    light_id: int
+    routine_id: int
+    media_url: str
+    is_playing: StrictBool
+
+    class Config:
+        orm_mode = True
+
+
+class TrvRoutineSettingView(BaseModel):
     id: int
     name: str
     temperature: int
@@ -61,7 +98,7 @@ class TrvRoutineSetting(BaseModel):
         orm_mode = True
 
 
-class LightRoutineSetting(BaseModel):
+class LightRoutineSettingView(BaseModel):
     id: int
     name: str
     brightness: int
@@ -72,7 +109,7 @@ class LightRoutineSetting(BaseModel):
         orm_mode = True
 
 
-class MediaRoutineSetting(BaseModel):
+class MediaRoutineSettingView(BaseModel):
     id: int
     name: str
     media_url: str
@@ -86,6 +123,7 @@ class MediaRoutineSetting(BaseModel):
 class ShowRoutineInfo(BaseModel):
     id: int
     room_id: int
+    name: str
     user_id: int
     start_time: time
     end_time: time

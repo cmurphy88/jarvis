@@ -36,7 +36,7 @@ class MediaRoom(Base):
 
 
 class MediaRoutineSetting(Base):
-    __tablename__ = "media_routine_settings"
+    __tablename__ = "media_routine_setting"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     media_id = Column(Integer, ForeignKey('media.id'))
