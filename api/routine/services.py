@@ -21,6 +21,7 @@ async def create_routine(request, database) -> models.Routine:
     return new_routine
 
 
+
 async def get_all_routines(database) -> List[models.Routine]:
     routines = database.query(models.Routine).all()
     return routines
@@ -39,17 +40,10 @@ async def delete_routine_by_id(routine_id, database):
     database.commit()
 
 
-async def show_routine_info(routine_id, database):
-    routine = database.query(models.Routine).filter(models.Routine.id == routine_id).all()
-    routine_info = ShowRoutineInfo()
-    if not routine_id:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Data Not Found !")
-
-    print(routine)
-
-    trv_info = database.query(TrvRoutineSetting).filter(TrvRoutineSetting.routine_id == routine_id).all()
-    light_info = database.query(LightRoutineSetting).filter(LightRoutineSetting.routine_id == routine_id).all()
-    media_info = database.query(LightRoutineSetting).filter(LightRoutineSetting.routine_id == routine_id).all()
+async def show_routine_info(routine_id, database) -> RoutineInfo:
+    routine = database.query(models.Routine).get(routine_id)
+    if not routine:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Routine does not exist!")
 
     routine_info.id = routine.room_id
     routine_info.room_id = routine.room_id

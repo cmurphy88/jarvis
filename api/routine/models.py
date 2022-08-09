@@ -9,7 +9,7 @@ class Routine(Base):
     __tablename__ = "routine"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String),
+    name = Column(String)
     room_id = Column(Integer, ForeignKey('room.id', ondelete="CASCADE"))
     user_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"))
     start_time = Column(Time)
@@ -21,7 +21,8 @@ class Routine(Base):
     # trv_routine_settings = relationship("TrvRoutineSetting")
     # light_routine_settings = relationship("LightRoutineSetting")
 
-    def __init__(self, room_id, user_id, start_time, end_time, *args, **kwargs):
+    def __init__(self, name, room_id, user_id, start_time, end_time, *args, **kwargs):
+        self.name = name
         self.room_id = room_id
         self.user_id = user_id
         self.start_time = start_time
