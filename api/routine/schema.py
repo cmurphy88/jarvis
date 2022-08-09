@@ -1,7 +1,8 @@
 from datetime import time
-from typing import Optional, List
+from typing import Optional, List, Union
 
 from pydantic import BaseModel, constr, StrictBool
+from sqlalchemy.orm import declarative_base
 
 from api.light.schema import DisplayLight
 from api.media.schema import DisplayMedia
@@ -10,7 +11,10 @@ from api.trv.schema import DisplayTrv, Trv
 
 class TrvSettings(BaseModel):
     id: int
+    name: str
     temperature: int
+    is_active: StrictBool
+    type: str = "trv"
 
 
 class LightSettings(BaseModel):
@@ -18,12 +22,15 @@ class LightSettings(BaseModel):
     name: str
     brightness: int
     is_active: StrictBool
-
+    type: str = "light"
 
 
 class MediaSettings(BaseModel):
     id: int
+    name: str
     media_url: str
+    is_active: StrictBool
+    type: str = "media"
 
 
 class Routine(BaseModel):
@@ -31,9 +38,7 @@ class Routine(BaseModel):
     user_id: int
     start_time: time
     end_time: time
-    trv: Optional[TrvSettings]
-    light: Optional[LightSettings]
-    media: Optional[MediaSettings]
+    devices: List[Union[LightSettings, MediaSettings, TrvSettings]]
 
 
 class DisplayRoutine(BaseModel):
@@ -87,49 +92,38 @@ class MediaRoutineSetting(BaseModel):
         orm_mode = True
 
 
-class TrvRoutineSettingView(BaseModel):
+class DeviceRoutineSettingView(BaseModel):
     id: int
     name: str
+    is_active: bool
+    type: str
+
+
+class TrvRoutineSettingView(DeviceRoutineSettingView):
     temperature: int
-    is_active: StrictBool
-    type: str = "trv"
-
-    class Config:
-        orm_mode = True
+    type = "trv"
 
 
-class LightRoutineSettingView(BaseModel):
-    id: int
-    name: str
+class LightRoutineSettingView(DeviceRoutineSettingView):
     brightness: int
-    is_active: StrictBool
-    type: str = "light"
-
-    class Config:
-        orm_mode = True
+    type = "light"
 
 
-class MediaRoutineSettingView(BaseModel):
-    id: int
-    name: str
+class MediaRoutineSettingView(DeviceRoutineSettingView):
     media_url: str
-    is_active: StrictBool
-    type: str = "media"
-
-    class Config:
-        orm_mode = True
+    type = "media"
 
 
-class ShowRoutineInfo(BaseModel):
+class RoutineDevices(BaseModel):
+    devices: List[Union[LightRoutineSettingView, MediaRoutineSettingView, TrvRoutineSettingView]]
+
+
+class RoutineInfo(BaseModel):
     id: int
-    room_id: int
     name: str
-    user_id: int
+    user: str
     start_time: time
     end_time: time
-    trv: List[TrvRoutineSetting]
-    light: List[LightRoutineSetting]
-    media: List[MediaRoutineSetting]
+    devices: List[Union[LightRoutineSettingView, MediaRoutineSettingView, TrvRoutineSettingView]]
 
-    class Config:
-        orm_mode: True
+

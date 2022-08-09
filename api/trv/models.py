@@ -45,7 +45,7 @@ class TrvRoutineSetting(Base):
     temperature = Column(Integer)
     is_active = Column(Boolean)
 
-    trv = relationship("Trv")
+    device = relationship("Trv")
     routines = relationship("Routine")
 
     def __init__(self, trv_id, routine_id, temperature, is_active, *args, **kwargs):

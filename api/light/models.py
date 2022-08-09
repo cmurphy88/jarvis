@@ -9,9 +9,11 @@ class Light(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     ip_address = Column(String(50))
+    name = Column(String(50))
 
-    def __init__(self, ip_address, *args, **kwargs):
+    def __init__(self, ip_address, name, *args, **kwargs):
         self.ip_address = ip_address
+        self.name = name
 
 
 class LightRoom(Base):
@@ -38,7 +40,7 @@ class LightRoutineSetting(Base):
     brightness = Column(Integer)
     is_active = Column(Boolean)
 
-    lights = relationship("Light")
+    device = relationship("Light")
     routines = relationship("Routine")
 
     def __init__(self, light_id, routine_id, media_url, is_active, *args, **kwargs):
