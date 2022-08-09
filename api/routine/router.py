@@ -27,9 +27,8 @@ async def get_all_routines(database: Session = Depends(db.get_db),
     return await services.get_all_routines(database)
 
 
-@router.get('/users/{user_id}', response_model=List[schema.DisplayRoutine])
-async def get_user_routine(user_id: int, database: Session = Depends(db.get_db),
-                           current_user: User = Depends(get_current_user)):
+@router.get('/users/{user_id}', response_model=List[schema.RoutineInfo])
+async def get_user_routine(user_id: int, database: Session = Depends(db.get_db)):
     return await services.get_user_routine(user_id, database)
 
 

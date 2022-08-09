@@ -47,8 +47,31 @@ async def get_all_routines(database) -> List[models.Routine]:
     return routines
 
 
-async def get_user_routine(user_id, database) -> List[models.Routine]:
+async def get_user_routine(user_id, database) -> List[RoutineInfo]:
     user_routines = database.query(models.Routine).filter(models.Routine.user_id == user_id).all()
+
+    routine_list = list()
+    user = database.query(User).get(user_id)
+
+    for x in user_routines:
+        username = user.first_name + ' ' + user.last_name
+
+        lights = map_light_to_view(x.light_routine_settings)
+        media = map_media_to_view(x.media_routine_settings)
+        trv = map_trv_to_view(x.trv_routine_settings)
+
+        devices = []
+        devices.extend(lights)
+        devices.extend(media)
+        devices.extend(trv)
+
+        routine_info = RoutineInfo(id=x.id, name=x.name, user=username, start_time=x.start_time, end_time=x.end_time,
+                                   devices=devices)
+        routine_list.append(routine_info)
+
+    return routine_list
+
+
     routine_list = list()
     for x in user_routines:
         routine_list.append(x)
