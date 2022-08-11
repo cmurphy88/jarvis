@@ -6,6 +6,8 @@ from api.trv.models import TrvRoom
 from api.light.models import LightRoom
 from api.room.models import RoomUserEntry
 from api.routine.models import Routine
+from ..routine.schema import RoutineInfo
+from ..routine.services import map_light_to_view, map_media_to_view, map_trv_to_view
 
 
 async def new_room_register(request, database) -> models.Room:
@@ -65,29 +67,26 @@ async def add_user_to_room(request, database) -> RoomUserEntry:
     return add_user
 
 
-async def get_all_room_routines(room_id, database) -> List[Routine]:
-    routine_info = database.query(Routine).filter(Routine.room_id == room_id).all()
+async def get_all_room_routines(room_id, database) -> List[RoutineInfo]:
+    room_routines = database.query(Routine).filter(Routine.room_id == room_id).all()
+
     routine_list = list()
-    for x in routine_info:
-        routine_list.append(x)
+
+    for x in room_routines:
+        username = x.users.first_name + ' ' + x.users.last_name
+
+        lights = map_light_to_view(x.light_routine_settings)
+        media = map_media_to_view(x.media_routine_settings)
+        trv = map_trv_to_view(x.trv_routine_settings)
+
+        devices = []
+        devices.extend(lights)
+        devices.extend(media)
+        devices.extend(trv)
+
+        routine_info = RoutineInfo(id=x.id, name=x.name, user=username, start_time=x.start_time, end_time=x.end_time,
+                                   devices=devices)
+        routine_list.append(routine_info)
+
     return routine_list
-
-    # if not routine_info:
-    #     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Data not found !")
-    # return routine_info
-
-
-# async def get_all_home_users(home_id, database) -> List[User]:
-#     home_users = database.query(models.HomeUser).filter(models.HomeUser.home_id == home_id).all()
-#     user_list = list()
-#
-#     for x in home_users:
-#         user_list.append(x.users)
-#     return user_list
-
-# async def all_rooms(database) -> List[models.Room]:
-#     rooms = database.query(models.Room).all()
-#     return rooms
-
-
 

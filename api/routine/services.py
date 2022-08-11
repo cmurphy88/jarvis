@@ -4,39 +4,72 @@ from fastapi import HTTPException, status
 
 from . import models
 from api.trv.models import TrvRoutineSetting
-from .schema import RoutineInfo, LightRoutineSettingView, MediaRoutineSettingView, TrvRoutineSettingView, RoutineDevices
+from .schema import RoutineInfo, LightRoutineSettingView, MediaRoutineSettingView, TrvRoutineSettingView, \
+    RoutineDevices, CreateRoutineResponse
 from ..light.models import LightRoutineSetting, Light
 from ..media.models import MediaRoutineSetting
+from ..media.models import Media
 from ..users.models import User
 
 
-async def create_routine(request, database) -> models.Routine:
-    new_routine = models.Routine(room_id=request.room_id,
+def build_light_routine_settings(database, request):
+    light_list = []
+    for d in request.devices:
+        if d.type == 'light':
+            light = database.query(Light).filter(Light.name == d.name).first()
+            if not light:
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Light " +
+                                                                                    d.name + " does not exist!")
+            light_routine = LightRoutineSetting(light_id=light.id, brightness=d.brightness,
+                                                is_active=d.is_active)
+
+            light_list.append(light_routine)
+
+    return light_list
+
+
+def build_media_routine_settings(database, request):
+    media_list = []
+    for d in request.devices:
+        if d.type == 'media':
+            media = database.query(Media).filter(Media.name == d.name).first()
+            if not media:
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Media " +
+                                                                                    d.name + " does not exist!")
+            media_routine = MediaRoutineSetting(media_id=media.id, media_url=d.media_url,
+                                                is_active=d.is_active)
+
+            media_list.append(media_routine)
+
+    return media_list
+
+
+async def create_routine(request, database) -> CreateRoutineResponse:
+    new_routine = models.Routine(name=request.name,
+                                 room_id=request.room_id,
                                  user_id=request.user_id,
                                  start_time=request.start_time,
-                                 end_time=request.end_time
+                                 end_time=request.end_time,
                                  )
 
-    light_routing_settings = []
-    for x in request.devices:
-        if x.type == "light":
-            print("light")
-        if x.type == "media":
-            print("media")
-
-    new_routine.light_routine_settings = light_routing_settings
+    light_devices = build_light_routine_settings(database, request)
+    media_devices = build_media_routine_settings(database, request)
+    new_routine.light_routine_settings = light_devices
+    new_routine.media_routine_settings = media_devices
 
     database.add(new_routine)
     database.commit()
     database.refresh(new_routine)
-    return new_routine
+
+    return CreateRoutineResponse(routine_id=new_routine.id)
 
 
 def create_light_setting(light_device, database) :
     light = database.query(Light).get(light_device.id)
 
     if not light:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Light " + light_device.id + " does not exist!")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Light " +
+                                                                            light_device.id + " does not exist!")
 
     # Build up light here and return
     return LightRoutineSetting()
@@ -69,12 +102,6 @@ async def get_user_routine(user_id, database) -> List[RoutineInfo]:
                                    devices=devices)
         routine_list.append(routine_info)
 
-    return routine_list
-
-
-    routine_list = list()
-    for x in user_routines:
-        routine_list.append(x)
     return routine_list
 
 

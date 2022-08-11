@@ -118,6 +118,32 @@ class RoutineDevices(BaseModel):
     devices: List[Union[LightRoutineSettingView, MediaRoutineSettingView, TrvRoutineSettingView]]
 
 
+class DeviceRoutineSettingCreate(BaseModel):
+    id: int
+    name: str
+    is_active: bool
+    type: str
+
+
+class TrvRoutineSettingCreate(DeviceRoutineSettingCreate):
+    temperature: int
+    type = "trv"
+
+
+class LightRoutineSettingCreate(DeviceRoutineSettingCreate):
+    brightness: int
+    type = "light"
+
+
+class MediaRoutineSettingCreate(DeviceRoutineSettingCreate):
+    media_url: str
+    type = "media"
+
+
+class RoutineDevicesCreate(BaseModel):
+    devices: List[Union[TrvRoutineSettingCreate, LightRoutineSettingCreate, MediaRoutineSettingCreate]]
+
+
 class RoutineInfo(BaseModel):
     id: int
     name: str
@@ -126,4 +152,18 @@ class RoutineInfo(BaseModel):
     end_time: time
     devices: List[Union[LightRoutineSettingView, MediaRoutineSettingView, TrvRoutineSettingView]]
 
+
+class CreateRoutine(BaseModel):
+    name: str
+    room_id: int
+    user_id: int
+    start_time: time
+    end_time: time
+    light_id: Optional[int]
+    room_id: Optional[int]
+    devices: List[Union[LightRoutineSettingCreate, MediaRoutineSettingCreate, TrvRoutineSettingCreate]]
+
+
+class CreateRoutineResponse(BaseModel):
+    routine_id: int
 

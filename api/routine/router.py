@@ -15,8 +15,7 @@ router = APIRouter(tags=['Routines'], prefix='/routines')
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
-async def create_routine(request: schema.Routine, database: Session = Depends(db.get_db),
-                         current_user: User = Depends(get_current_user)):
+async def create_routine(request: schema.CreateRoutine, database: Session = Depends(db.get_db)):
     new_routine = await services.create_routine(request, database)
     return new_routine
 

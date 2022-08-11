@@ -10,7 +10,7 @@ from api.media.schema import MediaRoom
 from api.trv.schema import TrvRoom
 from api.light.schema import LightRoom
 from api.room.schema import RoomUserEntry
-from api.routine.schema import DisplayRoutine
+from api.routine.schema import DisplayRoutine, RoutineInfo
 
 router = APIRouter(tags=['Rooms'], prefix='/rooms')
 
@@ -61,6 +61,6 @@ async def add_user_to_room(request: RoomUserEntry, database: Session = Depends(d
     return await services.add_user_to_room(request, database)
 
 
-@router.get('/{room_id}/routines', response_model=List[DisplayRoutine])
+@router.get('/{room_id}/routines', response_model=List[RoutineInfo])
 async def get_room_routines(room_id: int, database: Session = Depends(db.get_db)):
     return await services.get_all_room_routines(room_id, database)

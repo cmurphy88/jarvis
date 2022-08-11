@@ -43,8 +43,7 @@ class LightRoutineSetting(Base):
     device = relationship("Light")
     routines = relationship("Routine")
 
-    def __init__(self, light_id, routine_id, media_url, is_active, *args, **kwargs):
+    def __init__(self, light_id, brightness, is_active, *args, **kwargs):
         self.light_id = light_id
-        self.routine_id = routine_id
-        self.media_url = media_url
+        self.brightness = brightness
         self.is_active = is_active

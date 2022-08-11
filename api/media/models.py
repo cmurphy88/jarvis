@@ -47,9 +47,8 @@ class MediaRoutineSetting(Base):
     device = relationship("Media")
     routines = relationship("Routine")
 
-    def __init__(self, media_id, routine_id, media_url, is_active, *args, **kwargs):
+    def __init__(self, media_id, media_url, is_active, *args, **kwargs):
         self.media_id = media_id
-        self.routine_id = routine_id
         self.media_url = media_url
         self.is_active = is_active
 
