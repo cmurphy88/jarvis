@@ -5,16 +5,15 @@ INSERT INTO home (name) VALUES ('My Fermanagh House');
 
 -- user --
 INSERT INTO "users" (first_name, last_name, email, password)
-    VALUES ('Conor', 'Murphy', 'conor@g.com', 'password');
+    VALUES ('Conor', 'Murphy', 'conor@g.com', '$argon2id$v=19$m=65536,t=3,p=4$YczZuzeGcC4F4ByDEELIuQ$Ak/3jnsGTxi4qBKXnD+qu/1+1U2DxrCDrF+IwEsNGws');
 INSERT INTO "users" (first_name, last_name, email, password)
-    VALUES ('Niamh', 'Doherty', 'niamh@g.com', 'password123');
+    VALUES ('Niamh', 'Doherty', 'niamh@g.com', '$argon2id$v=19$m=65536,t=3,p=4$YczZuzeGcC4F4ByDEELIuQ$Ak/3jnsGTxi4qBKXnD+qu/1+1U2DxrCDrF+IwEsNGws');
 
 -- home user --
 INSERT INTO home_user (home_id, user_id, is_admin)
     VALUES (1, 1, TRUE);
 INSERT INTO home_user (home_id, user_id, is_admin)
     VALUES (3, 2, FALSE);
-
 
 -- room --
 INSERT INTO room (name, home_id)
