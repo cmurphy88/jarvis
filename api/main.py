@@ -9,6 +9,7 @@ from api.media import router as media_router
 from api.trv import router as trv_router
 from api.light import router as light_router
 from api.auth import router as auth_router
+from api.health import router as health_router
 # from api.home_user import router as home_user_router
 
 app = FastAPI(title="JARVISWebApp",
@@ -38,4 +39,5 @@ app.include_router(camera_router.router)
 app.include_router(media_router.router)
 app.include_router(trv_router.router)
 app.include_router(light_router.router)
+app.include_router(health_router.router)
 
