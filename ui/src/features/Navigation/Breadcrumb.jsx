@@ -7,28 +7,21 @@ function handleClick(event) {
   console.info('You clicked a breadcrumb.');
 }
 
-export default function Breadcrumb() {
+export default function Breadcrumb({room}) {
   return (
     <div role="presentation" onClick={handleClick}>
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="/">
           Home
         </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          href="/material-ui/getting-started/installation/"
-        >
-          Room
-        </Link>
-        <Link
+        {room && <Link
           underline="hover"
           color="text.primary"
           href="/material-ui/react-breadcrumbs/"
           aria-current="page"
         >
-          Kitchen
-        </Link>
+          {room}
+        </Link>}
       </Breadcrumbs>
     </div>
   );

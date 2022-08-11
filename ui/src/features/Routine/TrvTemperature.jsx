@@ -11,20 +11,24 @@ const Input = styled(MuiInput)`
   width: 42px;
 `;
 
-export default function TrvTemperature( {temperature }) {
+export default function TrvTemperature({ temperature, handleFormInputChange }) {
 
     React.useEffect(() => {
         setValue(temperature)
-      }, [temperature])
+    }, [temperature])
 
     const [value, setValue] = React.useState(0);
 
     const handleSliderChange = (event, newValue) => {
         setValue(newValue);
+        handleFormInputChange(newValue);
     };
 
     const handleInputChange = (event) => {
-        setValue(event.target.value === '' ? '' : Number(event.target.value));
+        const newValue =
+            event.target.value === "" ? "" : Number(event.target.value);
+        setValue(newValue);
+        handleFormInputChange(newValue);
     };
 
     const handleBlur = () => {

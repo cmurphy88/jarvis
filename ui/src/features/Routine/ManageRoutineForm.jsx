@@ -14,36 +14,76 @@ const defaultValues = {
   devices: [],
 };
 
-const ManageRoutineForm = ({ routine }) => {
+const ManageRoutineForm = ({ roomId, routine, handleModalClose }) => {
   const [isManagedView, setIsManagedView] = useState(false);
-  const [formValues, setFormValues] = useState(defaultValues);
+  const [routineSettings, setRoutineSettings] = useState(defaultValues);
+  const [devicesToRemove, setDevicesToRemove] = useState([]);
+  const [selectedRowId, setSelectedRowId] = useState(null);
   const [selectedDevice, setSelectedDevice] = useState(null);
 
   React.useEffect(() => {
-    routine && setFormValues(routine);
+    if(routine){
+      routine.room_id = roomId
+      setRoutineSettings(routine);
+    }
+    routine && setRoutineSettings(routine);
   }, [routine]);
 
   const handleInputChange = (e) => {
-    const { name, mediaUrl, value } = e.target;
-    setFormValues({
-      ...formValues,
+    const { name, value } = e.target;
+    setRoutineSettings({
+      ...routineSettings,
       [name]: value,
-      [mediaUrl]: value,
     });
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = () => {
+    console.log("Save this routine....", routineSettings);
   };
 
-  const handleSelectedDevice = (device) => {
+  const handleSelectedDevice = (device, rowId) => {
     setSelectedDevice(device);
+    setSelectedRowId(rowId);
     setIsManagedView(true);
+  };
+
+  const handleDevice = (device, rowId) => {
+    if (device && rowId !== null) {
+      updateDevice(device, rowId);
+    } else if (device && !rowId) {
+      addDevice(device);
+    }
+
+    setSelectedDevice(null);
+    setSelectedRowId(null);
+  };
+
+  const addDevice = (device) => {
+    const updatedForm = { ...routineSettings };
+    updatedForm.devices = [...routineSettings.devices, device];
+    setRoutineSettings(updatedForm);
+    setIsManagedView(false);
+  };
+
+  const updateDevice = (device, rowId) => {
+    const updatedForm = { ...routineSettings };
+    updatedForm.devices.splice(rowId, 1, device);
+    setRoutineSettings(updatedForm);
+    setIsManagedView(false);
+  };
+
+  const removeDevice = (rowId) => {
+    const updatedForm = { ...routineSettings };
+    const deviceToRemove = updatedForm.devices[rowId];
+    updatedForm.devices.splice(rowId, 1);
+    setRoutineSettings(updatedForm);
+    setDevicesToRemove([...devicesToRemove, deviceToRemove])
+    setIsManagedView(false);
   };
 
   function handleClose() {
     setIsManagedView(false);
   }
-
+  
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -59,7 +99,7 @@ const ManageRoutineForm = ({ routine }) => {
               name="name"
               label="Routine name"
               type="text"
-              value={formValues.name}
+              value={routineSettings.name}
               onChange={handleInputChange}
               disabled={isManagedView}
               style={{ minWidth: "100%", paddingBottom: 20 }}
@@ -71,7 +111,7 @@ const ManageRoutineForm = ({ routine }) => {
               name="startTime"
               label="Start Time"
               type="time"
-              value={formValues.start_time}
+              value={routineSettings.start_time}
               onChange={handleInputChange}
               disabled={isManagedView}
               style={{ width: "90%" }}
@@ -83,7 +123,7 @@ const ManageRoutineForm = ({ routine }) => {
               name="endTime"
               label="End Time"
               type="time"
-              value={formValues.end_time}
+              value={routineSettings.end_time}
               onChange={handleInputChange}
               disabled={isManagedView}
               style={{ width: "90%" }}
@@ -95,17 +135,21 @@ const ManageRoutineForm = ({ routine }) => {
       {isManagedView ? (
         <div>
           <ManageDevice
+            rowId={selectedRowId}
             selectedDevice={selectedDevice}
             handleClose={handleClose}
+            handleDevice={handleDevice}
           />
         </div>
       ) : (
         <>
           <Grid item>
             <DeviceTable
-              routine={formValues}
+              routine={routineSettings}
               handleSelectedDevice={handleSelectedDevice}
+              removeDevice={removeDevice}
             />
+            
             <Button
               style={{ width: "100%" }}
               color="primary"
@@ -131,13 +175,14 @@ const ManageRoutineForm = ({ routine }) => {
               variant="contained"
               color="secondary"
               style={{ marginRight: "20px" }}
+              onClick={() => handleModalClose()}
             >
               Close
             </Button>
             <Button
               variant="contained"
               color="primary"
-              type="submit"
+              onClick={() => handleSubmit()}
             >
               Save
             </Button>

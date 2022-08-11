@@ -27,8 +27,10 @@ export default function RemoveRoomModal({ home }) {
 
     React.useEffect(() => {
         const fetchRooms = async () => {
-            const data = await getHomeRooms(home.id);
-            setRooms(data)
+            if(home && home.id) {
+                const data = await getHomeRooms(home.id);
+                setRooms(data)
+            }
         }
 
         fetchRooms()

@@ -7,16 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
-
-function createData(name, view) {
-  return { name, view };
-}
-
-const rows = [
-  createData('TRV'),
-  createData('Alexa'),
-  createData('Philips Hue Lamp'),
-];
+import { mock_devices } from '../../mock/MockDevices';
 
 export default function DeviceTable() {
   return (
@@ -29,13 +20,13 @@ export default function DeviceTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {mock_devices.map((row) => (
             <TableRow
-              key={row.name}
+              key={row.label}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.label}
               </TableCell>
               <TableCell align="right"><Button>edit</Button></TableCell>
             </TableRow>

@@ -1,30 +1,33 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Slider from '@mui/material/Slider';
-import MuiInput from '@mui/material/Input';
-import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Slider from "@mui/material/Slider";
+import MuiInput from "@mui/material/Input";
+import LightbulbIcon from "@mui/icons-material/Lightbulb";
 
 const Input = styled(MuiInput)`
-  width: 42px;
+    width: 42px;
 `;
 
-export default function LightBrightness({brightness}) {
-  const [value, setValue] = React.useState(0);
-
+export default function LightBrightness({ brightness, handleFormInputChange }) {
+  const [value, setValue] = React.useState(100);
 
   React.useEffect(() => {
-    setValue(brightness)
-  }, [brightness])
+    setValue(brightness);
+  }, [brightness]);
 
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
+    handleFormInputChange(newValue);
   };
 
   const handleInputChange = (event) => {
-    setValue(event.target.value === '' ? '' : Number(event.target.value));
+    const newValue =
+      event.target.value === "" ? "" : Number(event.target.value);
+    setValue(newValue);
+    handleFormInputChange(newValue);
   };
 
   const handleBlur = () => {
@@ -46,7 +49,7 @@ export default function LightBrightness({brightness}) {
         </Grid>
         <Grid item xs>
           <Slider
-            value={typeof value === 'number' ? value : 0}
+            value={typeof value === "number" ? value : 0}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
           />
@@ -61,8 +64,8 @@ export default function LightBrightness({brightness}) {
               step: 10,
               min: 0,
               max: 100,
-              type: 'number',
-              'aria-labelledby': 'input-slider',
+              type: "number",
+              "aria-labelledby": "input-slider",
             }}
           />
         </Grid>

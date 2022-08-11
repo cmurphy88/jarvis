@@ -9,11 +9,14 @@ import { blue, red } from '@mui/material/colors';
 import { getHomeRooms } from '../../shared/api/RoomAPI';
 import AddRoomModal from './AddRoomModal';
 import RemoveRoomModal from './RemoveRoomModal';
+import { useNavigate } from 'react-router-dom';
+import { Box } from '@material-ui/core';
 
 
 
 export default function HomeAccordian({ home }) {
     const [rooms, setRooms] = useState()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchRooms = async () => {
@@ -24,7 +27,7 @@ export default function HomeAccordian({ home }) {
         fetchRooms()
             // make sure to catch any error
             .catch(console.error);
-    })
+    }, [])
 
 
     return (
@@ -37,23 +40,16 @@ export default function HomeAccordian({ home }) {
                 <Typography> {home.name} </Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <Typography>
-                    {rooms && rooms.map((r, i) => {
-                        return <ListItemButton key={i} component="a" href={'rooms/' + r.id}>
-                            <ListItemText primary={r.name} />
-                        </ListItemButton>
-                    })}
-
-                    <ListItemButton component="a">
-
-                        <IconButton href='#' sx={{ color: blue[500] }} >
-                            <AddRoomModal />
-                        </IconButton>
-                        <IconButton href='#' sx={{ color: red[500] }} >
-                           <RemoveRoomModal />
-                        </IconButton>
+                {rooms && rooms.map((r, i) => {
+                    return <ListItemButton key={i} onClick={() => navigate(`/rooms/${r.id}`)}>
+                        <ListItemText primary={r.name}>{r.name}</ListItemText>
                     </ListItemButton>
-                </Typography>
+                })}
+
+                <Box sx={{ display: "flex", justifyContent: "right", p: 2}}>
+                        <AddRoomModal />
+                        <RemoveRoomModal />
+                </Box>
             </AccordionDetails>
 
         </Accordion>
