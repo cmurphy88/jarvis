@@ -1,7 +1,7 @@
 import { post } from "../shared/api";
 // import { redaxios} from "redaxios";
 import { getApiUrl } from "../config/index"
-import { axios } from "../lib/axios";
+import { axios } from "../libs/axios";
 
 const localStorageKey = "__jarvis_token__";
 

@@ -1,4 +1,4 @@
-import { axios } from "../../lib/axios";
+import { axios } from "../../libs/axios";
 import { useEffect, useState } from "react";
 
 export async function getUsersHomes(id) {
