@@ -1,16 +1,12 @@
-from datetime import timedelta
-
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
-
-from api import db
-from api.users import hashing, services
-from api.users.models import User
-from api.users import schema as user_schema
-from api.users.validator import verify_email_exist
-from .schema import Login
+from .. import db
+from ..users import hashing, services
+from ..users.models import User
+from ..users import schema as user_schema
+from ..users.validator import verify_email_exist
 
 from .jwt import create_access_token
 

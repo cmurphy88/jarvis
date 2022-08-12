@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from api import config
+from . import config
 
 DATABASE_USERNAME = config.DATABASE_USERNAME
 DATABASE_PASSWORD = config.DATABASE_PASSWORD

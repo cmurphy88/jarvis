@@ -2,7 +2,7 @@ from typing import List
 
 from fastapi import APIRouter, Depends, status, Response, HTTPException
 from sqlalchemy.orm import Session
-from api import db
+from .. import db
 from . import schema
 from . import services
 from . import validator
