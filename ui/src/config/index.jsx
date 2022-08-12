@@ -1,5 +1,5 @@
 function getApiUrl() {
-    return "http://127.0.0.1:8000/";
+    return process.env.REACT_APP_API_URL || "http://127.0.0.1:8000/";
 }
 
 export {getApiUrl}; 
