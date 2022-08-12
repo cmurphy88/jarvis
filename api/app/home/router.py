@@ -2,13 +2,13 @@ from typing import List
 
 from fastapi import APIRouter, Depends, status, Response, HTTPException
 from sqlalchemy.orm import Session
-from api import db
 from . import schema
 from . import services
 from . import validator
-from api.users.schema import DisplayUser
 from .schema import DisplayHome
+from .. import db
 from ..room.schema import DisplayRoom
+from ..users.schema import DisplayUser
 
 router = APIRouter(tags=['Homes'], prefix='/homes')
 

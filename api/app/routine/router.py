@@ -2,10 +2,10 @@ from typing import List
 from fastapi import APIRouter, Depends, status, Response
 from sqlalchemy.orm import Session
 
-from api import db
-from api.auth.jwt import get_current_user
-from api.users.schema import User
-# from api.auth.jwt import get_current_user
+from .. import db
+from ..auth.jwt import get_current_user
+from ..users.schema import User
+# from ..auth.jwt import get_current_user
 from . import schema
 from . import services
 from api.trv.schema import TrvRoutineSetting

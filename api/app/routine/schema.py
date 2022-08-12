@@ -1,12 +1,7 @@
 from datetime import time
 from typing import Optional, List, Union
 
-from pydantic import BaseModel, constr, StrictBool
-from sqlalchemy.orm import declarative_base
-
-from api.light.schema import DisplayLight
-from api.media.schema import DisplayMedia
-from api.trv.schema import DisplayTrv, Trv
+from pydantic import BaseModel, StrictBool
 
 
 class TrvSettings(BaseModel):

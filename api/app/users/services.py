@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from fastapi import HTTPException, status
 from . import models
-from api.routine.models import Routine
+from ..routine.models import Routine
 
 
 async def new_user_register(request, database) -> models.User:

@@ -6,8 +6,8 @@ from api import db
 from . import schema
 from . import services
 from . import validator
-from api.users.schema import DisplayUser
-# from api.room.schema import
+
+# from ..room.schema import
 
 router = APIRouter(tags=['TRVS'], prefix='/trvs')
 

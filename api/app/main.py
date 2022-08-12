@@ -1,16 +1,16 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.users import router as user_router
-from api.home import router as home_router
-from api.room import router as room_router
-from api.routine import router as routine_router
-from api.camera import router as camera_router
-from api.media import router as media_router
-from api.trv import router as trv_router
-from api.light import router as light_router
-from api.auth import router as auth_router
-from api.health import router as health_router
-# from api.home_user import router as home_user_router
+from .home import router as home_router
+from .room import router as room_router
+from .routine import router as routine_router
+from .camera import router as camera_router
+from .media import router as media_router
+from .trv import router as trv_router
+from .light import router as light_router
+from .auth import router as auth_router
+from .health import router as health_router
+from .users import router as user_router
+# from home_user import router as home_user_router
 
 app = FastAPI(title="JARVISWebApp",
               version="0.0.2")

@@ -1,14 +1,13 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, status, Response, HTTPException
+from fastapi import APIRouter, Depends, status, Response
 from sqlalchemy.orm import Session
 from api import db
 # from api.auth.jwt import get_current_user
 from . import schema
 from . import services
-from . import validator
-from api.routine.schema import DisplayRoutine
-from api.auth.jwt import get_current_user
+from ..routine.schema import DisplayRoutine
+from ..auth.jwt import get_current_user
 
 
 router = APIRouter(tags=['Users'], prefix='/users')

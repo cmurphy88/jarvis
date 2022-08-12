@@ -3,7 +3,7 @@ from typing import List, Union
 from fastapi import HTTPException, status
 
 from . import models
-from api.trv.models import TrvRoutineSetting
+from ..trv.models import TrvRoutineSetting
 from .schema import RoutineInfo, LightRoutineSettingView, MediaRoutineSettingView, TrvRoutineSettingView, \
     RoutineDevices, CreateRoutineResponse
 from ..light.models import LightRoutineSetting, Light

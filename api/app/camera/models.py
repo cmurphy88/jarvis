@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from api.db import Base
+from ..db import Base
 
 
 class Camera(Base):

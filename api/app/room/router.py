@@ -4,13 +4,11 @@ from sqlalchemy.orm import Session
 from api import db
 from . import schema
 from . import services
-from api.media.schema import Media
-# from api.media_room.schema import MediaRoom
-from api.media.schema import MediaRoom
-from api.trv.schema import TrvRoom
-from api.light.schema import LightRoom
-from api.room.schema import RoomUserEntry
-from api.routine.schema import DisplayRoutine, RoutineInfo
+from ..media.schema import MediaRoom
+from ..trv.schema import TrvRoom
+from ..light.schema import LightRoom
+from ..room.schema import RoomUserEntry
+from ..routine.schema import RoutineInfo
 
 router = APIRouter(tags=['Rooms'], prefix='/rooms')
 

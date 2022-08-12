@@ -3,7 +3,7 @@ from typing import List, Optional
 from fastapi import HTTPException, status
 from . import models
 # from . models import HomeUser
-from api.users.models import User
+from ..users.models import User
 
 
 async def new_media_register(request, database) -> models.Media:

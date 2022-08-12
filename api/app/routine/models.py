@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Float, Text, ForeignKey, Time, T
 
 from sqlalchemy.orm import relationship
 
-from api.db import Base
+from ..db import Base
 
 
 class Routine(Base):
