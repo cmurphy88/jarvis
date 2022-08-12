@@ -75,6 +75,7 @@ CREATE TABLE "room_user_hierarchy"
 CREATE  TABLE "media"
 (
     id              INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name            VARCHAR(30),
     ip_address      VARCHAR(30),
     is_playing      BOOLEAN
 );
@@ -83,12 +84,14 @@ CREATE  TABLE "media"
 CREATE TABLE "trv"
 (
     id      INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name    VARCHAR(30),
     ip_address  VARCHAR(30)
 );
 
 CREATE TABLE "light"
 (
-    id        INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id              INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name            VARCHAR(30),
     ip_address      VARCHAR(30)
 );
 

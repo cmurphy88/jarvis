@@ -1,17 +1,18 @@
-FROM python:3.10
+FROM python:3.10.1-slim-buster
 
-RUN apt-get update
-RUN apt-get install -y openssl
+RUN apt-get update \
+  && apt-get -y install netcat gcc \
+  && apt-get clean \
 
 WORKDIR /api
 
-COPY . .
+RUN pip install --upgrade pip
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
 
-RUN pip install pip
+COPY . .
 
 ARG API_DB_URL
 ENV DATABASE_URL=$API_DB_URL
 
-ENTRYPOINT ["sh", "-c"]
-
-CMD ["flask run --host=0.0.0.0"]
+CMD ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0"]
