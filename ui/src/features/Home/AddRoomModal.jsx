@@ -3,10 +3,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { IconButton } from '@material-ui/core';
-import { blue } from '@material-ui/core/colors';
-import AddIcon from '@mui/icons-material/Add';
-import { flexbox } from '@mui/system';
 
 const style = {
   position: 'absolute',

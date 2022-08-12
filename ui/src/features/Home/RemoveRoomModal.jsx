@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { blue, red } from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
 import { getHomeRooms } from '../../shared/api/RoomAPI';
 import { Link } from 'react-router-dom';
 
@@ -36,7 +36,7 @@ export default function RemoveRoomModal({ home }) {
         fetchRooms()
             // make sure to catch any error
             .catch(console.error);
-    }, [])
+    }, [home])
 
     return (
         <div>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import { CustomizedButton as Button } from "../../components/Button";
 import { Container } from "@mui/system";
-import ResponsiveAppBar from "../Navigation/navbar";
 import HomeAccordian from "./HomeAccordian";
 import HomeIcon from "@mui/icons-material/Home"
 import { getUsersHomes } from "../../shared/api/HomesAPI";
@@ -24,7 +23,7 @@ function HomePage() {
     fetchHomes()
       // make sure to catch any error
       .catch(console.error);
-  }, [])
+  }, [user])
 
   return (
     <div className="App">
