@@ -1,5 +1,4 @@
 import React from "react";
-import ResponsiveAppBar from "../Navigation/navbar";
 
 function UserProfile() {
 
