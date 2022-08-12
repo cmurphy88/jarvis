@@ -15,7 +15,11 @@ SQLALCHEMY_DATABASE_URL = f"postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}
 
 
 def get_database_url():
-    return os.environ.get('DATABASE_URL', SQLALCHEMY_DATABASE_URL)
+    db = os.environ.get('DATABASE_URL')
+    if not db:
+        return SQLALCHEMY_DATABASE_URL
+
+    return db
 
 
 engine = create_engine(get_database_url())
