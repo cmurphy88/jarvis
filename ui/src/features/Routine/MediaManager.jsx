@@ -54,9 +54,9 @@ const MediaManagement = ({
         setIsOn(!isOn);
     };
 
-    const handleMediaUrlChange = (value) => {;
-        handleFieldChange("media_url", value)
-    }
+    // const handleMediaUrlChange = (value) => {;
+    //     handleFieldChange("media_url", value)
+    // }
 
     if (!deviceSettings) {
         return;

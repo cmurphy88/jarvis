@@ -9,19 +9,15 @@ import DeviceTable from "./DeviceTable";
 import { green } from "@mui/material/colors";
 import RoutineModal from "../Routine/RoutineModal";
 import {
-  getAllUsersRoutines,
   getRoomRoutines,
-  getUsersRoutines,
 } from "../../shared/api/RoutinesAPI";
-import useAuth from "../../provider/useAuth";
 import { useParams } from "react-router-dom";
 import { getRoom } from "../../shared/api/RoomAPI";
 
 function RoomPage() {
-  const { user } = useAuth();
   let { id } = useParams();
   const [displayModal, setDisplayModal] = React.useState(false);
-  const [activeRoutine, setActiveRoutine] = React.useState(false);
+  const [activeRoutine] = React.useState(false);
 
   const [routines, setRoutines] = React.useState([]);
   const [selectedRoutine, setSelectedRoutine] = React.useState(null);
@@ -35,7 +31,7 @@ function RoomPage() {
     };
 
     retrieveRoom()
-  }, [])
+  }, [id])
 
   useEffect(() => {
     const fetchRoutines = async () => {
@@ -46,7 +42,7 @@ function RoomPage() {
     fetchRoutines()
       // make sure to catch any error
       .catch(console.error);
-  }, [user]);
+  }, [id]);
 
   const handleSelectedRow = (routine) => {
     setSelectedRoutine(routine);
@@ -80,6 +76,7 @@ function RoomPage() {
             {activeRoutine ? (<RoutineTable
               routines={[]}
               handleSelectedRow={handleSelectedRow}
+
             />) : <p>No routine active</p>}
             
           </Box>

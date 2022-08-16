@@ -4,8 +4,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { IconButton, ListItemButton, ListItemText } from '@mui/material';
-import { blue, red } from '@mui/material/colors';
+import { ListItemButton, ListItemText } from '@mui/material';
 import { getHomeRooms } from '../../shared/api/RoomAPI';
 import AddRoomModal from './AddRoomModal';
 import RemoveRoomModal from './RemoveRoomModal';
@@ -27,7 +26,7 @@ export default function HomeAccordian({ home }) {
         fetchRooms()
             // make sure to catch any error
             .catch(console.error);
-    }, [])
+    }, [home.id])
 
 
     return (

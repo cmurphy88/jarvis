@@ -1,17 +1,7 @@
 import { post } from "../shared/api";
-// import { redaxios} from "redaxios";
-import { getApiUrl } from "../config/index"
-import { axios } from "../lib/axios";
+import { axios } from "../libs/axios";
 
 const localStorageKey = "__jarvis_token__";
-
-function isLoggedIn() {
-    // const token = getToken();
-    // if (token && !isTokenExpired()) {
-    //     return true;
-    // }
-    // return false;
-}
 
 async function getToken() {
     return window.localStorage.getItem(localStorageKey);

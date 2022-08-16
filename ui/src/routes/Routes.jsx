@@ -11,11 +11,6 @@ import { JoinHome } from "../features/Home/JoinHome";
 import CreateHome from "../features/Home/CreateHome";
 import { UserProfile } from "../features/User/Profile";
 import RoutineModal from "../features/Routine/RoutineModal";
-import { ShowAllHomes, ShowAllHomeUsers } from "../features/misc/homes";
-import { Homes } from "../provider/homes";
-import FetchHomes from "../shared/api/HomesAPI";
-
-
 
 const AppRoutes = () => {
     const { user } = useAuth();

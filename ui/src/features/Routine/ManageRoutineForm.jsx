@@ -27,7 +27,7 @@ const ManageRoutineForm = ({ roomId, routine, handleModalClose }) => {
       setRoutineSettings(routine);
     }
     routine && setRoutineSettings(routine);
-  }, [routine]);
+  }, [routine, roomId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -83,7 +83,7 @@ const ManageRoutineForm = ({ roomId, routine, handleModalClose }) => {
   function handleClose() {
     setIsManagedView(false);
   }
-  
+
   return (
     <>
       <form onSubmit={handleSubmit}>

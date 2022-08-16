@@ -1,4 +1,4 @@
-import { axios } from "../../lib/axios";
+import { axios } from "../../libs/axios";
 
 export async function getUsersRoutines(id) {
     const response = await axios.get(`/routines/${id}`);
