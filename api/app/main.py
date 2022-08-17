@@ -10,7 +10,6 @@ from .light import router as light_router
 from .auth import router as auth_router
 from .health import router as health_router
 from .users import router as user_router
-# from home_user import router as home_user_router
 
 app = FastAPI(title="JARVISWebApp",
               version="0.0.2")
@@ -20,6 +19,8 @@ origins = [
     "https://localhost.tiangolo.com",
     "http://localhost",
     "http://localhost:3000",
+    "https://jarvis-qub.co.uk",
+    "https://www.jarvis-qub.co.uk"
 ]
 
 app.add_middleware(
@@ -40,4 +41,3 @@ app.include_router(media_router.router)
 app.include_router(trv_router.router)
 app.include_router(light_router.router)
 app.include_router(health_router.router)
-
