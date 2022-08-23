@@ -7,6 +7,8 @@ RUN apt-get update \
 WORKDIR /api
 
 RUN pip3 install --upgrade pip
+RUN python3.9 -m pip install tensorflow
+RUN pip3 install deepface
 COPY ./requirements.txt .
 RUN pip3 install -r requirements.txt
 
