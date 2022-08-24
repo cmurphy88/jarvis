@@ -1,5 +1,6 @@
-import os.path
+import os.path, os
 from os import path
+import glob
 
 from fastapi import File, UploadFile, HTTPException, status, APIRouter
 from typing import List
@@ -11,8 +12,9 @@ router = APIRouter(
     tags=['upload']
 )
 
-base_dir = "images/db"
-representations_file = '/Users/conor.murphy/PycharmProjects/jarvis/pi/images/db/representations_vgg_face.pkl'
+base_dir = "/home/pi/faces/db"
+representations_file = '/home/pi/faces/db/representations_vgg_face.pkl'
+backends = ["opencv", "ssd", "dlib", "mtcnn"]
 
 
 @router.post("/upload")
@@ -20,16 +22,18 @@ def upload(user_id: int, files: List[UploadFile] = File(...)):
     for file in files:
         image_path = get_image_path(str(user_id), file.filename)
         store_image(image_path, file)
-        os.remove(representations_file)
+        
+    os.remove(representations_file)
 
     return {"message": f"Successfully uploaded {[file.filename for file in files]}"}
 
 
 @router.post("/find")
 def find(file: UploadFile = File(...)):
-    stored_users = '/Users/conor.murphy/PycharmProjects/jarvis/pi/images/'
+    stored_users = '/home/pi/faces/'
     temp_path = stored_users + 'temp/' + file.filename
     store_image(temp_path, file)
+    os.remove(representations_file)
 
     df = DeepFace.find(img_path=temp_path, db_path=stored_users + 'db/')
     if len(df.values) == 0:
@@ -44,6 +48,42 @@ def find(file: UploadFile = File(...)):
 
     return user_id
 
+
+@router.post("/detect")
+def detect():
+    detections = '/home/pi/faces/motion/image1.jpg'
+    db_path = '/home/pi/faces/db/'
+
+    df = DeepFace.find(img_path=detections, db_path=db_path)
+    if len(df.values) == 0:
+        os.remove(detections)
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='user not found')
+
+    match = df.values[0][0]
+    match_arr = match.split('/')
+    user_id = match_arr[len(match_arr) - 2]
+
+    os.remove(detections)
+
+    return user_id
+
+
+@router.post("/clear-motion")
+def clear_motion():
+    files = glob.glob('/home/pi/faces/motion/*')
+    for f in files:
+        os.remove(f)
+
+
+@router.post("/sort-faces")
+def sort_faces():
+    files = glob.glob('/home/pi/faces/motion/*')
+    for f in files:
+        df = DeepFace.detectFace(img_path=f, enforce_detection=False)
+        if len(df.values) > 0:
+            with open('/home/pi/faces/captured_faces', 'wb') as file:
+                file.write(f.file.read())
+        
 
 def store_image(img_path: str, file: UploadFile = File(...)):
 
