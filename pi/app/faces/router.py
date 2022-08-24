@@ -74,8 +74,8 @@ def clear_motion():
         os.remove(f)
 
 
-@router.post("/sort-faces")
-def match_face():
+@router.get("/find-faces")
+def find_faces():
     os.remove(representations_file)
     files = glob.glob('/home/pi/faces/motion/*')
     user_id = "-1"
@@ -92,7 +92,6 @@ def match_face():
 
     return user_id
 
-        
 
 def store_image(img_path: str, file: UploadFile = File(...)):
     try:
