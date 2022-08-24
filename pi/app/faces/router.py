@@ -51,7 +51,7 @@ def find(file: UploadFile = File(...)):
 
 @router.post("/detect")
 def detect():
-    detections = '/home/pi/faces/motion/image1.jpg'
+    detections = '/home/pi/faces/motion/image2.jpg'
     db_path = '/home/pi/faces/db/'
 
     df = DeepFace.find(img_path=detections, db_path=db_path)
@@ -63,12 +63,11 @@ def detect():
     match_arr = match.split('/')
     user_id = match_arr[len(match_arr) - 2]
 
-    os.remove(detections)
+    # os.remove(detections)
 
     return user_id
 
 
-@router.post("/clear-motion")
 def clear_motion():
     files = glob.glob('/home/pi/faces/motion/*')
     for f in files:
@@ -76,16 +75,37 @@ def clear_motion():
 
 
 @router.post("/sort-faces")
-def sort_faces():
+def match_face():
+    os.remove(representations_file)
     files = glob.glob('/home/pi/faces/motion/*')
+    user_id = "-1"
     for f in files:
-        df = DeepFace.detectFace(img_path=f, enforce_detection=False)
+        df = DeepFace.find(img_path=f, db_path='/home/pi/faces/db/', enforce_detection=False)
         if len(df.values) > 0:
-            with open('/home/pi/faces/captured_faces', 'wb') as file:
-                file.write(f.file.read())
+            match = df.values[0][0]
+            match_arr = match.split('/')
+            user_id = match_arr[len(match_arr) - 2]
+            break
+        else:
+            user_id = "-1"
+    clear_motion()
+
+    return user_id
+
         
 
 def store_image(img_path: str, file: UploadFile = File(...)):
+    try:
+        contents = file.file.read()
+        with open(img_path, 'wb') as f:
+            f.write(contents)
+    except Exception:
+        return {"message": "There was an error uploading the file(s)"}
+    finally:
+        file.file.close()
+
+
+def store_image_to_captured(img_path: str, file: UploadFile = File(...)):
 
     try:
         contents = file.file.read()
@@ -95,7 +115,7 @@ def store_image(img_path: str, file: UploadFile = File(...)):
     except Exception:
         return {"message": "There was an error uploading the file(s)"}
     finally:
-        file.file.close()
+        file.close()
 
 
 def get_image_path(user_id: str, file_name: str):
