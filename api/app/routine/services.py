@@ -10,6 +10,7 @@ from ..light.models import LightRoutineSetting, Light
 from ..media.models import MediaRoutineSetting
 from ..media.models import Media
 from ..users.models import User
+from ..trv.models import Trv
 
 
 def build_light_routine_settings(database, request):
@@ -119,9 +120,9 @@ async def show_routine_info(routine_id, database) -> RoutineInfo:
 
     username = user.first_name + ' ' + user.last_name
 
-    lights = map_light_to_view(routine.light_routine_settings)
-    media = map_media_to_view(routine.media_routine_settings)
-    trv = map_trv_to_view(routine.trv_routine_settings)
+    lights = map_light_to_view(routine.light_routine_settings, database)
+    media = map_media_to_view(routine.media_routine_settings, database)
+    trv = map_trv_to_view(routine.trv_routine_settings, database)
 
     devices = []
     devices.extend(lights)
@@ -134,28 +135,46 @@ async def show_routine_info(routine_id, database) -> RoutineInfo:
     return routine_info
 
 
-def map_light_to_view(lights):
+def map_light_to_view(lights, database):
     lights_view = []
     for li in lights:
-        lights_view.append(LightRoutineSettingView(id=li.id, name=li.device.name, brightness=li.brightness,
+        light_name = get_light_names(li, database)
+        lights_view.append(LightRoutineSettingView(id=li.id, name=light_name, brightness=li.brightness,
                                                    is_active=li.is_active))
 
     return lights_view
 
 
-def map_media_to_view(medias):
+def get_light_names(li, database):
+    light = database.query(Light).filter(Light.id == li.id).first()
+    return light.name
+
+
+def map_media_to_view(medias, database):
     medias_view = []
     for x in medias:
-        medias_view.append(MediaRoutineSettingView(id=x.id, name=x.device.name, media_url=x.media_url,
+        media_name = get_media_names(x, database)
+        medias_view.append(MediaRoutineSettingView(id=x.id, name=media_name, media_url=x.media_url,
                                                    is_active=x.is_active))
 
     return medias_view
 
 
-def map_trv_to_view(trvs):
+def get_media_names(med, database):
+    media = database.query(Media).filter(Media.id == med.id).first()
+    return media.name
+
+
+def map_trv_to_view(trvs, database):
     trv_view = []
     for x in trvs:
-        trv_view.append(TrvRoutineSettingView(id=x.id, name=x.device.name, temperature=x.temperature,
+        trv_name = get_trv_names(x, database)
+        trv_view.append(TrvRoutineSettingView(id=x.id, name=trv_name, temperature=x.temperature,
                                               is_active=x.is_active))
 
     return trv_view
+
+
+def get_trv_names(trv, database):
+    trv = database.query(Trv).filter(Trv.id == trv.id).first()
+    return trv.name
