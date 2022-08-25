@@ -1,9 +1,11 @@
 import time
 import requests
+import json
 
 while True:
 
     user_id = requests.get('http://localhost:8001/find-faces')
+    resp = json.loads(user_id.text)
     print(user_id)
 
     time.sleep(10)
