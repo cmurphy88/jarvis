@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 import uvicorn
 
-from faces.router import router
+from .faces.router import router
 
 app = FastAPI()
 

@@ -76,7 +76,9 @@ def clear_motion():
 
 @router.get("/find-faces")
 def find_faces():
-    os.remove(representations_file)
+    
+    # os.remove(representations_file)
+    
     files = glob.glob('/home/pi/faces/motion/*')
     user_id = "-1"
     for f in files:
