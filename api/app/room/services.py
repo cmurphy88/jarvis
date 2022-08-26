@@ -75,9 +75,9 @@ async def get_all_room_routines(room_id, database) -> List[RoutineInfo]:
     for x in room_routines:
         username = x.users.first_name + ' ' + x.users.last_name
 
-        lights = map_light_to_view(x.light_routine_settings)
-        media = map_media_to_view(x.media_routine_settings)
-        trv = map_trv_to_view(x.trv_routine_settings)
+        lights = map_light_to_view(x.light_routine_settings, database)
+        media = map_media_to_view(x.media_routine_settings, database)
+        trv = map_trv_to_view(x.trv_routine_settings, database)
 
         devices = []
         devices.extend(lights)
