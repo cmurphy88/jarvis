@@ -1,6 +1,7 @@
 from typing import List
 from fastapi import APIRouter, Depends, status, Response
 from sqlalchemy.orm import Session
+import datetime
 
 from .. import db
 from ..auth.jwt import get_current_user
@@ -27,6 +28,11 @@ async def get_all_routines(database: Session = Depends(db.get_db),
 @router.get('/users/{user_id}', response_model=List[schema.RoutineInfo])
 async def get_user_routine(user_id: int, database: Session = Depends(db.get_db)):
     return await services.get_user_routine(user_id, database)
+
+
+@router.get('/users/{user_id}/now', response_model=schema.RoutineInfo)
+async def get_user_routine_by_time(user_id: int, database: Session = Depends(db.get_db)):
+    return await services.get_user_routine_by_time(user_id, database)
 
 
 @router.delete('/{routine_id}', status_code=status.HTTP_204_NO_CONTENT, response_class=Response)

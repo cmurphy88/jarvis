@@ -1,6 +1,8 @@
+from datetime import datetime
 from typing import List, Union
 
 from fastapi import HTTPException, status
+from pyasn1.compat.octets import null
 
 from . import models
 from ..trv.models import TrvRoutineSetting
@@ -104,6 +106,42 @@ async def get_user_routine(user_id, database) -> List[RoutineInfo]:
         routine_list.append(routine_info)
 
     return routine_list
+
+
+def find_time_range(start_time, end_time, current_time):
+    if (current_time > start_time) & (current_time < end_time):
+        return "Time found"
+
+
+async def get_user_routine_by_time(user_id, database) -> RoutineInfo:
+    user_routines = database.query(models.Routine).filter(models.Routine.user_id == user_id).all()
+
+    routine_list = list()
+    user = database.query(User).get(user_id)
+
+    current_time = datetime.now().time()
+
+    for x in user_routines:
+        username = user.first_name + ' ' + user.last_name
+
+        lights = map_light_to_view(x.light_routine_settings, database)
+        media = map_media_to_view(x.media_routine_settings, database)
+        trv = map_trv_to_view(x.trv_routine_settings, database)
+
+        devices = []
+        devices.extend(lights)
+        devices.extend(media)
+        devices.extend(trv)
+
+        routine_info = RoutineInfo(id=x.id, name=x.name, user=username, start_time=x.start_time, end_time=x.end_time,
+                                   devices=devices)
+        routine_list.append(routine_info)
+
+    for x in routine_list:
+        if x.start_time < current_time:
+            if x.end_time > current_time:
+                selected_routine = x
+                return selected_routine
 
 
 async def delete_routine_by_id(routine_id, database):
