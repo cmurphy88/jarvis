@@ -14,8 +14,12 @@ while True:
     
     def get_routine_info(user_id):
         routine = requests.get('https://jarvis-1.5a25j6q6mjvnu.eu-west-1.cs.amazonlightsail.com/routines/users/' + str(user_id) + '/now' )
-        resp = routine.json()
-        print(datetime.now())
+
+        if not routine.json() == 'None':
+            resp = routine.json()
+        else:
+            print("No routine found at this time...")
+
         return resp
 
 
