@@ -26,11 +26,9 @@ while True:
         print(user_id_int)
         routine = get_routine_info(user_id_int)
         print(routine)
-        print("Getting the time settings...")
         print("Getting the light settings for that time...")
     else:
         print("No users found...")
-    
     
     time.sleep(10)
  
