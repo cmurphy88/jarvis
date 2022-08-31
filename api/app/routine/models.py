@@ -34,10 +34,9 @@ class RoutineTimeEntries(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     routine_id = Column(Integer, ForeignKey('routine.id'))
-    timestamp = Column(TIMESTAMP)
+    time_entry = Column(TIMESTAMP)
 
-
-    def __init__(self, routine_id, timestamp, *args, **kwargs):
+    def __init__(self, routine_id, time_entry, *args, **kwargs):
         self.routine_id = routine_id
-        self.timestamp = timestamp
+        self.time_entry = time_entry
 

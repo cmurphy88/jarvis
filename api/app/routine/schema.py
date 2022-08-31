@@ -1,7 +1,10 @@
 from datetime import time
+from sqlite3 import Timestamp
 from typing import Optional, List, Union
 
 from pydantic import BaseModel, StrictBool
+
+from datetime import datetime
 
 
 class TrvSettings(BaseModel):
@@ -50,8 +53,8 @@ class DisplayRoutine(BaseModel):
 
 class RoutineTimeEntries(BaseModel):
     id: int
-    user_id: int
-    user_order: int
+    routine_id: int
+    time_entry: Timestamp
 
 
 class LightRoutineSetting(BaseModel):
@@ -141,6 +144,7 @@ class RoutineDevicesCreate(BaseModel):
 
 class RoutineInfo(BaseModel):
     id: int
+    room_id: int
     name: str
     user: str
     start_time: time
@@ -161,4 +165,9 @@ class CreateRoutine(BaseModel):
 
 class CreateRoutineResponse(BaseModel):
     routine_id: int
+
+
+class CreateRoutineTimeEntry(BaseModel):
+    routine_id: int
+    time_entry: Timestamp
 
