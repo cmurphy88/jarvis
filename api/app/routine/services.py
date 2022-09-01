@@ -7,7 +7,7 @@ from pyasn1.compat.octets import null
 from . import models
 from ..trv.models import TrvRoutineSetting
 from .schema import RoutineInfo, LightRoutineSettingView, MediaRoutineSettingView, TrvRoutineSettingView, \
-    RoutineDevices, CreateRoutineResponse
+    RoutineDevices, CreateRoutineResponse, CreateRoutineTimeEntry
 from ..light.models import LightRoutineSetting, Light
 from ..media.models import MediaRoutineSetting
 from ..media.models import Media
@@ -133,7 +133,8 @@ async def get_user_routine_by_time(user_id, database) -> RoutineInfo:
         devices.extend(media)
         devices.extend(trv)
 
-        routine_info = RoutineInfo(id=x.id, name=x.name, user=username, start_time=x.start_time, end_time=x.end_time,
+        routine_info = RoutineInfo(id=x.id, room_id=x.room_id, name=x.name, user=username, start_time=x.start_time,
+                                   end_time=x.end_time,
                                    devices=devices)
         routine_list.append(routine_info)
 
@@ -142,6 +143,17 @@ async def get_user_routine_by_time(user_id, database) -> RoutineInfo:
             if x.end_time > current_time:
                 selected_routine = x
                 return selected_routine
+
+
+async def create_routine_time_entry(request, database) -> CreateRoutineTimeEntry:
+    new_routine_time_entry = models.RoutineTimeEntries(routine_id=request.routine_id,
+                                                       time_entry=request.time_entry)
+
+    database.add(new_routine_time_entry)
+    database.commit()
+    database.refresh(new_routine_time_entry)
+
+    return new_routine_time_entry
 
 
 async def delete_routine_by_id(routine_id, database):
@@ -155,9 +167,7 @@ async def show_routine_info(routine_id, database) -> RoutineInfo:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Routine does not exist!")
 
     user = database.query(User).get(routine.user_id)
-
     username = user.first_name + ' ' + user.last_name
-
     lights = map_light_to_view(routine.light_routine_settings, database)
     media = map_media_to_view(routine.media_routine_settings, database)
     trv = map_trv_to_view(routine.trv_routine_settings, database)
@@ -216,3 +226,13 @@ def map_trv_to_view(trvs, database):
 def get_trv_names(trv, database):
     trv = database.query(Trv).filter(Trv.id == trv.id).first()
     return trv.name
+
+
+def get_all_routine_time_entries(database) -> List[models.RoutineTimeEntries]:
+    entries = database.query(models.RoutineTimeEntries).all()
+    return entries
+
+
+async def get_all_routines(database) -> List[models.Routine]:
+    routines = database.query(models.Routine).all()
+    return routines

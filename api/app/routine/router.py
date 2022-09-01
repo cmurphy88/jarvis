@@ -45,3 +45,13 @@ async def delete_routine_by_id(routine_id: int, database: Session = Depends(db.g
 async def show_routine_info(routine_id: int, database: Session = Depends(db.get_db)):
     show_routine = await services.show_routine_info(routine_id, database)
     return show_routine
+
+
+@router.post('/entries', response_model=schema.RoutineTimeEntries)
+async def create_routine_time_entry(request: schema.RoutineTimeEntries, database: Session = Depends(db.get_db)):
+    return await services.create_routine_time_entry(request, database)
+
+
+@router.get('/entries_all', response_model=List[schema.RoutineTimeEntries])
+async def get_all_routine_time_entries(database: Session = Depends(db.get_db)):
+    return await services.get_all_routine_time_entries(database)
