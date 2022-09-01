@@ -4,3 +4,6 @@ pipenv==2022.6.7
 python-multipart==0.0.5
 virtualenv==20.15.1
 uvicorn[standard]==0.18.0
+bleak==0.11.0
+HAP-python[QRCode]==3.4.1
+git+https://github.com/benknight/hue-python-rgb-converter.git@f73a4ec#egg=rgbxy
