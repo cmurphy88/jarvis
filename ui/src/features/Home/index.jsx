@@ -27,14 +27,16 @@ function HomePage() {
 
   return (
     <div className="App">
-      <Container maxWidth='md'>
+      <Container
+        maxWidth='md'
+        sx={{
+          borderColor: 'divider',
+          border: 1,
+          boxShadow: 3
+        }}
+      >
         <Breadcrumb />
         <Box
-          borderColor="primary.main"
-          borderTop={2}
-          borderBottom={2}
-          borderLeft={2}
-          borderRight={2}
         // marginTop={5}
         >
           <h2>My Homes</h2>
@@ -48,11 +50,6 @@ function HomePage() {
 
           <Container sx={{ marginTop: 10 }}>
             <Box
-              borderColor="primary.main"
-              borderTop={2}
-              borderBottom={2}
-              borderLeft={2}
-              borderRight={2}
             // marginTop={5}
             >
               <h2>Add Home</h2>

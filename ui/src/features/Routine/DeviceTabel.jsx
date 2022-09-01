@@ -38,7 +38,6 @@ export default function DeviceTable({
       </TableRow>
     );
   };
-console.log(routine)
   return (
     <TableContainer component={Paper} sx={{ marginTop: 3 }}>
       <Table sx={{ minWidth: 380 }} aria-label="simple table">
