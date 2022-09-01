@@ -75,7 +75,6 @@ export default function ManageDevice({
     };
 
     const getDeviceSettings = () => {
-        console.log("type...", type)
         if (type === "light") {
             return (
                 <LightManagement
