@@ -23,6 +23,7 @@ class Routine(Base):
 
     def __init__(self, name, room_id, user_id, start_time, end_time, *args, **kwargs):
         self.name = name
+        self.type = 'light'
         self.room_id = room_id
         self.user_id = user_id
         self.start_time = start_time

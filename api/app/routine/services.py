@@ -5,6 +5,7 @@ from fastapi import HTTPException, status
 from pyasn1.compat.octets import null
 
 from . import models
+from ..auth.jwt import get_current_user
 from ..trv.models import TrvRoutineSetting
 from .schema import RoutineInfo, LightRoutineSettingView, MediaRoutineSettingView, TrvRoutineSettingView, \
     RoutineDevices, CreateRoutineResponse, CreateRoutineTimeEntry
@@ -101,27 +102,26 @@ async def get_user_routine(user_id, database) -> List[RoutineInfo]:
         devices.extend(media)
         devices.extend(trv)
 
-        routine_info = RoutineInfo(id=x.id, name=x.name, user=username, start_time=x.start_time, end_time=x.end_time,
+        routine_info = RoutineInfo(id=x.id, room_id=x.room_id, name=x.name, user=username, start_time=x.start_time,
+                                   end_time=x.end_time,
                                    devices=devices)
         routine_list.append(routine_info)
 
     return routine_list
 
 
-def find_time_range(start_time, end_time, current_time):
-    if (current_time > start_time) & (current_time < end_time):
-        return "Time found"
-
-
-async def get_user_routine_by_time(user_id, database) -> RoutineInfo:
-    user_routines = database.query(models.Routine).filter(models.Routine.user_id == user_id).all()
+async def get_active_routine(room_id, database) -> RoutineInfo:
+    user_routines = database.query(models.Routine).filter(models.Routine.room_id == room_id).all()
 
     routine_list = list()
-    user = database.query(User).get(user_id)
+
+    # user_email = await get_current_user().email
 
     current_time = datetime.now().time()
 
     for x in user_routines:
+        user_id = x.user_id
+        user = database.query(User).get(user_id)
         username = user.first_name + ' ' + user.last_name
 
         lights = map_light_to_view(x.light_routine_settings, database)
@@ -138,14 +138,24 @@ async def get_user_routine_by_time(user_id, database) -> RoutineInfo:
                                    devices=devices)
         routine_list.append(routine_info)
 
+    current_list = []
+
     for x in routine_list:
         if x.start_time < current_time:
             if x.end_time > current_time:
-                selected_routine = x
-                return selected_routine
+                current_list.append(x)
+
+    if len(current_list) == 0:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No active routine!")
+
+    return current_list[0]
 
 
 async def create_routine_time_entry(request, database) -> CreateRoutineTimeEntry:
+
+    # select routine time entries by routine id, check if time exists in table, if yes, exit, return response code 200
+    # if entry doesn't exist, return the routine info
+
     new_routine_time_entry = models.RoutineTimeEntries(routine_id=request.routine_id,
                                                        time_entry=request.time_entry)
 
@@ -186,8 +196,8 @@ async def show_routine_info(routine_id, database) -> RoutineInfo:
 def map_light_to_view(lights, database):
     lights_view = []
     for li in lights:
-        light_name = get_light_names(li, database)
-        lights_view.append(LightRoutineSettingView(id=li.id, name=light_name, brightness=li.brightness,
+        name = get_light_names(li, database)
+        lights_view.append(LightRoutineSettingView(id=li.id, name=name, brightness=li.brightness,
                                                    is_active=li.is_active))
 
     return lights_view
@@ -231,8 +241,3 @@ def get_trv_names(trv, database):
 def get_all_routine_time_entries(database) -> List[models.RoutineTimeEntries]:
     entries = database.query(models.RoutineTimeEntries).all()
     return entries
-
-
-async def get_all_routines(database) -> List[models.Routine]:
-    routines = database.query(models.Routine).all()
-    return routines

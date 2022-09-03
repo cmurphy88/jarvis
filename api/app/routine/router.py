@@ -30,9 +30,15 @@ async def get_user_routine(user_id: int, database: Session = Depends(db.get_db))
     return await services.get_user_routine(user_id, database)
 
 
-@router.get('/users/{user_id}/now', response_model=schema.RoutineInfo)
-async def get_user_routine_by_time(user_id: int, database: Session = Depends(db.get_db)):
-    return await services.get_user_routine_by_time(user_id, database)
+@router.get('/rooms/{room_id}/active', response_model=schema.RoutineInfo)
+async def get_active_routine(room_id: int, database: Session = Depends(db.get_db)):
+    return await services.get_active_routine(room_id, database)
+
+
+# call to routine time entries
+# returns array of routine time entries
+# select routine by returned routine id
+#
 
 
 @router.delete('/{routine_id}', status_code=status.HTTP_204_NO_CONTENT, response_class=Response)
