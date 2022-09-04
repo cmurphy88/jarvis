@@ -49,7 +49,8 @@ function HomePage() {
               // marginTop={5}
               >
                 <h2>Add Home</h2>
-                <Container>
+                <Container
+                >
                   <Box
                     component="span"
                     m={1}
@@ -57,11 +58,19 @@ function HomePage() {
                     justifyContent="space-between"
                     alignItems="center"
                   >
-                    <Button variant="contained" color="success" style={{ padding: "0px 100px", marginLeft: 50, marginBottom: 30 }}>
-                      <h4>Create new home</h4>
+                    <Button
+                      variant="contained"
+                      sx={{ display: "flex" }}
+                      disabled
+                    >
+                      Add Home
                     </Button>
-                    <Button variant="contained" style={{ padding: "15px 100px", marginRight: 50, marginBottom: 30 }}>
-                      <h4>Join Home</h4>
+                    <Button
+                      variant="contained"
+                      sx={{ display: "flex" }}
+                      disabled
+                    >
+                      Join Home
                     </Button>
                   </Box>
                 </Container>
