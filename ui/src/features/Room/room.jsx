@@ -63,17 +63,17 @@ function RoomPage() {
     return
   }
   return (
-    <div className="App">
-      <Box
-      sx={{
-        boxShadow: 2
-      }}
+    <div className="App"
+    sx={{
+      backgroundColor: 'lightgrey'
+    }}
+    >
+      <Container maxWidth="md"
       >
-        <Container maxWidth="md"
-          sx={{
-            marginBottom: 5,
-          }}
-
+        <Box
+        sx={{
+          boxShadow:3
+        }}
         >
           <Container sx={{ marginTop: 2 }}>
             <Breadcrumb room={room && room.name} />
@@ -160,12 +160,12 @@ function RoomPage() {
             </Box>
           </Container>
 
+        </Box>
+      </Container>
 
-        </Container>
 
-      </Box>
 
-    </div>
+    </div >
   );
 }
 

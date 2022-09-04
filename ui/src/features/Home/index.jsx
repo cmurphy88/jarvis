@@ -30,50 +30,46 @@ function HomePage() {
       <Container
         maxWidth='md'
       >
-        <Breadcrumb />
-        <Box
-        // marginTop={5}
-        >
-          <h2>My Homes</h2>
-          <HomeIcon fontSize="large" />
+        <Box sx={{ boxShadow: 3 }}>
+          <Breadcrumb />
+          <Box
+          // marginTop={5}
+          >
+            <h2>My Homes</h2>
+            <HomeIcon fontSize="large" />
 
-          <Container>
-            {homes && homes.map((h, i) => {
-              return <HomeAccordian key={h.id} home={h} />
-            })}
-          </Container>
+            <Container>
+              {homes && homes.map((h, i) => {
+                return <HomeAccordian key={h.id} home={h} />
+              })}
+            </Container>
 
-          <Container sx={{ marginTop: 10 }}>
-            <Box
-            // marginTop={5}
-            >
-              <h2>Add Home</h2>
-              <Container>
-                <Box
-                  component="span"
-                  m={1}
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Button variant="contained" color="success" style={{ padding: "0px 100px", marginLeft: 50, marginBottom: 30 }}>
-                    <h4>Create new home</h4>
-                  </Button>
-                  <Button variant="contained" style={{ padding: "15px 100px", marginRight: 50, marginBottom: 30 }}>
-                    <h4>Join Home</h4>
-                  </Button>
-                </Box>
-
-              </Container>
-            </Box>
-          </Container>
-
-
-
+            <Container sx={{ marginTop: 10 }}>
+              <Box
+              // marginTop={5}
+              >
+                <h2>Add Home</h2>
+                <Container>
+                  <Box
+                    component="span"
+                    m={1}
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Button variant="contained" color="success" style={{ padding: "0px 100px", marginLeft: 50, marginBottom: 30 }}>
+                      <h4>Create new home</h4>
+                    </Button>
+                    <Button variant="contained" style={{ padding: "15px 100px", marginRight: 50, marginBottom: 30 }}>
+                      <h4>Join Home</h4>
+                    </Button>
+                  </Box>
+                </Container>
+              </Box>
+            </Container>
+          </Box>
         </Box>
-
       </Container>
-
     </div>
   );
 }
