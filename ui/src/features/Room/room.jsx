@@ -8,21 +8,20 @@ import MembersTable from "./MembersTable";
 import DeviceTable from "./DeviceTable";
 import { green } from "@mui/material/colors";
 import RoutineModal from "../Routine/RoutineModal";
-import { getCurrentRoutine, getRoomRoutines, } from "../../shared/api/RoutinesAPI";
+import { getRoomRoutines, } from "../../shared/api/RoutinesAPI";
 import { useParams } from "react-router-dom";
 import { getRoom } from "../../shared/api/RoomAPI";
-import useAuth from "../../provider/useAuth";
-import CurrentRoutineAccordion from "../Routine/CurrentRoutine";
+// import useAuth from "../../provider/useAuth";
 import ActiveRoutine from "./ActiveRoutine";
 
 function RoomPage() {
   let { id } = useParams();
   const [displayModal, setDisplayModal] = React.useState(false);
-  const { user } = useAuth()
+  // const { user } = useAuth()
   const [routines, setRoutines] = React.useState([]);
   const [selectedRoutine, setSelectedRoutine] = React.useState(null);
   const [room, setRoom] = React.useState(null);
-  const [currentRoutine, setCurrentRoutine] = React.useState([]);
+  // const [currentRoutine, setCurrentRoutine] = React.useState([]);
 
 
 
