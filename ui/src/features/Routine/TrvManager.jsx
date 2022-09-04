@@ -66,8 +66,8 @@ const TrvManagement = ({
     }
 
     return (
-        <Grid container rowSpacing={2} alignItems="center" justify="center" direction="column" >
-            <Grid item style={{ marginBottom: 15 }}>
+        <Grid container alignItems="flex-end" direction="row">
+            <Grid item xs={8} md={8}>
                 <TextField
                     id="name-input"
                     name="name"
@@ -80,22 +80,28 @@ const TrvManagement = ({
                 />
             </Grid>
 
-            <Grid item >
-                <Grid container spacing={8} direction="row" justify="center" style={{ marginTop: 3, marginBottom: 3 }}>
-                    <Grid item >
-                        <Toggle
-                            isChecked={deviceSettings.is_active}
-                            handleChecked={handleChecked}
-                        />
-                    </Grid>
-                </Grid>
-            </Grid>
-            <Grid item style={{ marginBottom: 40 }}>
-                <TrvTemperature 
-                temperature={deviceSettings.temperature} 
-                handleFormInputChange={handleTemperatureChange}
+            <Grid item xs={4} md={4} style={{ alignSelf: "flex-end" }}>
+                <Toggle
+                    isChecked={deviceSettings.is_active}
+                    handleChecked={handleChecked}
                 />
             </Grid>
+
+            {isOn && (
+                <Grid
+                    item
+                    xs={12}
+                    md={12}
+                    style={{
+                        marginTop: 20,
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >                 <TrvTemperature
+                        temperature={deviceSettings.temperature}
+                        handleFormInputChange={handleTemperatureChange}
+                    />
+                </Grid>)}
         </Grid>
     );
 };

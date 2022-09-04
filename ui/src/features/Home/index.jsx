@@ -29,11 +29,6 @@ function HomePage() {
     <div className="App">
       <Container
         maxWidth='md'
-        sx={{
-          borderColor: 'divider',
-          border: 1,
-          boxShadow: 3
-        }}
       >
         <Breadcrumb />
         <Box

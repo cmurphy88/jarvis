@@ -11,7 +11,7 @@ const Input = styled(MuiInput)`
   width: 42px;
 `;
 
-export default function TrvTemperature({ temperature, handleFormInputChange }) {
+export default function TrvTemperature({ temperature, handleFormInputChange, disabled=false }) {
 
     React.useEffect(() => {
         setValue(temperature)
@@ -55,6 +55,7 @@ export default function TrvTemperature({ temperature, handleFormInputChange }) {
                         aria-labelledby="input-slider"
                         max={35}
                         min={25}
+                        disabled={disabled}
                     />
                 </Grid>
                 <Grid item>
@@ -63,6 +64,7 @@ export default function TrvTemperature({ temperature, handleFormInputChange }) {
                         size="small"
                         onChange={handleInputChange}
                         onBlur={handleBlur}
+                        disabled={disabled}
                         inputProps={{
                             step: 1,
                             min: 25,

@@ -63,14 +63,8 @@ const MediaManagement = ({
     }
 
     return (
-        <Grid
-            container
-            rowSpacing={2}
-            alignItems="center"
-            justify="center"
-            direction="column"
-        >
-            <Grid item style={{ marginBottom: 15 }}>
+        <Grid container alignItems="flex-end" direction="row">
+            <Grid item xs={8} md={8}>
                 <TextField
                     id="name-input"
                     name="name"
@@ -82,35 +76,33 @@ const MediaManagement = ({
                     disabled
                 />
             </Grid>
-
-            <Grid item style={{ marginBottom: 15 }}>
-                <TextField
-                    id="name-input"
-                    name="media_url"
-                    label="Media URL"
-                    type="text"
-                    value={deviceSettings.media_url}
-                    onChange={handleInputChange}
-                    style={{ width: "100%"}}
-                />
+            <Grid item xs={4} md={4} style={{ alignSelf: "flex-end" }}>
+                <Toggle
+                    isChecked={deviceSettings.is_active}
+                    handleChecked={handleChecked} />
             </Grid>
 
-            <Grid item>
+            {isOn && (
                 <Grid
-                    container
-                    spacing={8}
-                    direction="row"
-                    justify="center"
-                    style={{ marginTop: 3, marginBottom: 3 }}
-                >
-                    <Grid item>
-                        <Toggle
-                            isChecked={deviceSettings.is_active}
-                            handleChecked={handleChecked}
-                        />
-                    </Grid>
-                </Grid>
-            </Grid>
+                    item
+                    xs={12}
+                    md={12}
+                    style={{
+                        marginTop: 20,
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >                    <TextField
+                        id="name-input"
+                        name="media_url"
+                        label="Media URL"
+                        type="text"
+                        value={deviceSettings.media_url}
+                        onChange={handleInputChange}
+                        style={{ width: "100%" }}
+                    />
+                </Grid>)}
+
         </Grid>
     );
 };

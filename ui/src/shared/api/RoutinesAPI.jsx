@@ -15,8 +15,8 @@ export async function getRoomRoutines(roomId) {
     return response.data;
 }
 
-export async function getCurrentRoutine(userId) {
-    const response = await axios.get(`/routines/users/${userId}/now`);
+export async function getActiveRoutine(roomId) {
+    const response = await axios.get(`/routines/rooms/${roomId}/active`);
     return response.data;
 }
 

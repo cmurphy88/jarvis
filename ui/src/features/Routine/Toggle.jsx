@@ -2,7 +2,7 @@ import * as React from "react";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
-export default function Toggle({ isChecked, handleChecked }) {
+export default function Toggle({ isChecked, handleChecked, disabled = false }) {
   const [checked, setChecked] = React.useState(false);
 
   React.useEffect(() => {
@@ -24,6 +24,7 @@ export default function Toggle({ isChecked, handleChecked }) {
         labelPlacement="start"
         checked={checked}
         onChange={handleChange}
+        disabled={disabled}
       />
     </div>
   );

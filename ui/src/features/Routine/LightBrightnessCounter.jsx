@@ -11,7 +11,7 @@ const Input = styled(MuiInput)`
     width: 42px;
 `;
 
-export default function LightBrightness({ brightness, handleFormInputChange }) {
+export default function LightBrightness({ brightness, handleFormInputChange, disabled = false }) {
   const [value, setValue] = React.useState(100);
 
   React.useEffect(() => {
@@ -52,6 +52,7 @@ export default function LightBrightness({ brightness, handleFormInputChange }) {
             value={typeof value === "number" ? value : 0}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
+            disabled={disabled}
           />
         </Grid>
         <Grid item>
@@ -67,6 +68,7 @@ export default function LightBrightness({ brightness, handleFormInputChange }) {
               type: "number",
               "aria-labelledby": "input-slider",
             }}
+            disabled={disabled}
           />
         </Grid>
       </Grid>
