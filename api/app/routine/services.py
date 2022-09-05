@@ -187,7 +187,32 @@ async def get_active_routine_by_room(room_id, user_id, database) -> List[Routine
     if len(current_list) == 0:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No active routine!")
 
+    if len(current_list) > 0:
+        is_active = await is_routine_active(current_list[0], database)
+        if not is_active:
+            await create_time_entries(current_list[0], database)
+
     return current_list
+
+
+async def is_routine_active(routine, database):
+    current_date = datetime.now().date()
+
+    entries = database.query(models.RoutineTimeEntries).filter(models.RoutineTimeEntries.routine_id == routine.id)
+    for x in entries:
+        if x.time_entry.date() == current_date:
+            return True
+        else:
+            continue
+
+
+async def create_time_entries(routine, database):
+    current_time_date = datetime.now()
+    new_time_entry = models.RoutineTimeEntries(routine_id=routine.id, time_entry=current_time_date)
+
+    database.add(new_time_entry)
+    database.commit()
+    database.refresh(new_time_entry)
 
 
 async def create_routine_time_entry(request, database) -> CreateRoutineTimeEntry:
