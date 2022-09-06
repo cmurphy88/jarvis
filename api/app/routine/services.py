@@ -191,6 +191,8 @@ async def get_active_routine_by_room(room_id, user_id, database) -> List[Routine
         is_active = await is_routine_active(current_list[0], database)
         if not is_active:
             await create_time_entries(current_list[0], database)
+        else:
+            raise HTTPException(status_code=status.HTTP_200_OK, detail="Routine already active!")
 
     return current_list
 
