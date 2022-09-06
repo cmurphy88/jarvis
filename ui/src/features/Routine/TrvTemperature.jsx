@@ -11,7 +11,7 @@ const Input = styled(MuiInput)`
   width: 42px;
 `;
 
-export default function TrvTemperature({ temperature, handleFormInputChange, disabled=false }) {
+export default function TrvTemperature({ temperature, handleFormInputChange, disabled = false }) {
 
     React.useEffect(() => {
         setValue(temperature)
@@ -46,7 +46,8 @@ export default function TrvTemperature({ temperature, handleFormInputChange, dis
             </Typography>
             <Grid container spacing={2} alignItems="center">
                 <Grid item>
-                    <DeviceThermostatIcon />
+                    <DeviceThermostatIcon sx={{ display: { xs: "none", md: "flex" } }}
+                    />
                 </Grid>
                 <Grid item xs>
                     <Slider
@@ -56,6 +57,7 @@ export default function TrvTemperature({ temperature, handleFormInputChange, dis
                         max={35}
                         min={25}
                         disabled={disabled}
+                        sx={{ display: { xs: "none", md: "flex" } }}
                     />
                 </Grid>
                 <Grid item>

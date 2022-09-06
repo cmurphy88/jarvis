@@ -6,7 +6,6 @@ import HomeAccordian from "./HomeAccordian";
 import HomeIcon from "@mui/icons-material/Home"
 import { getUsersHomes } from "../../shared/api/HomesAPI";
 import useAuth from "../../provider/useAuth";
-import Breadcrumb from "../Navigation/Breadcrumb";
 
 function HomePage() {
   const { user } = useAuth()
@@ -30,10 +29,8 @@ function HomePage() {
       <Container
         maxWidth='md'
       >
-        <Box sx={{ boxShadow: 3 }}>
-          <Breadcrumb />
+        <Box sx={{ boxShadow: 3, p: 2 }}>
           <Box
-          // marginTop={5}
           >
             <h2>My Homes</h2>
             <HomeIcon fontSize="large" />
@@ -46,7 +43,6 @@ function HomePage() {
 
             <Container sx={{ marginTop: 10 }}>
               <Box
-              // marginTop={5}
               >
                 <h2>Add Home</h2>
                 <Container

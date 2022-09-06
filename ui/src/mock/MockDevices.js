@@ -10,6 +10,11 @@ export const mock_devices = [
         type: "light",
     },
     {
+        value: "Get Toasty",
+        label: "Get Toasty",
+        type: "media",
+    },
+    {
         value: "Trv Device",
         label: "Trv Device",
         type: "trv",

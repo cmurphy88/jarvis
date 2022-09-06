@@ -31,7 +31,7 @@ export default function ActiveRoutine({ roomId }) {
   const renderLightSettings = (device) => {
     return (
       <Grid container key={device.name} alignItems="flex-end" direction="row">
-        <Grid item xs={2} md={4}>
+        <Grid item xs={4} md={4}>
           <TextField
             id="name-input"
             name="name"
@@ -42,7 +42,7 @@ export default function ActiveRoutine({ roomId }) {
             disabled
           />
         </Grid>
-        <Grid item xs={2} md={2} style={{ alignSelf: "flex-end" }}>
+        <Grid item xs={4} md={2} style={{ alignSelf: "flex-end" }}>
           <Toggle
             isChecked={device.is_active}
             disabled={true}
@@ -52,7 +52,7 @@ export default function ActiveRoutine({ roomId }) {
         {device.is_active && (
           <Grid
             item
-            xs={6}
+            xs={4}
             md={6}
             style={{
               marginTop: 20,
@@ -85,7 +85,7 @@ export default function ActiveRoutine({ roomId }) {
             disabled
           />
         </Grid>
-        <Grid item xs={2} md={2} style={{ alignSelf: "flex-end" }}>
+        <Grid item xs={4} md={2} style={{ alignSelf: "flex-end", marginRight: 60 }}>
           <Toggle
             isChecked={device.is_active}
             handleChecked={() => { }}
@@ -95,11 +95,11 @@ export default function ActiveRoutine({ roomId }) {
         {device.is_active && (
           <Grid
             item
-            xs={4}
+            xs={12}
             md={4}
             style={{
               marginTop: 20,
-              marginLeft: 60,
+              // marginLeft: 60,
               display: "flex",
               justifyContent: "center",
             }}
@@ -107,7 +107,7 @@ export default function ActiveRoutine({ roomId }) {
             <TextField
               id="name-input"
               name="media_url"
-              label="Media URL"
+              label="Playing"
               type="text"
               value={device.media_url}
               style={{ width: "100%" }}
@@ -126,7 +126,7 @@ export default function ActiveRoutine({ roomId }) {
           <TextField
             id="name-input"
             name="name"
-            label="Device Nickname"
+            label="Device"
             type="text"
             value={device.name}
             style={{ width: "100%" }}
@@ -134,7 +134,7 @@ export default function ActiveRoutine({ roomId }) {
           />
         </Grid>
 
-        <Grid item xs={2} md={2} style={{ alignSelf: "flex-end" }}>
+        <Grid item xs={4} md={2} style={{ alignSelf: "flex-end" }}>
           <Toggle
             isChecked={device.is_active}
             handleChecked={() => { }}
@@ -145,7 +145,7 @@ export default function ActiveRoutine({ roomId }) {
         {device.is_active && (
           <Grid
             item
-            xs={6}
+            xs={4}
             md={6}
             style={{
               marginTop: 20,

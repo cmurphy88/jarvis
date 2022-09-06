@@ -13,8 +13,8 @@ function createData(name, userOrder) {
 
 const rows = [
   createData('Conor', 1),
+  createData('Nate', 2),
   createData('Niamh', 3),
-  createData('Nate', 2)
 ];
 
 export default function MembersTable() {
