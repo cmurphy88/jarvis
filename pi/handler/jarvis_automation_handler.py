@@ -7,10 +7,16 @@ from datetime import datetime
 from huesdk import Hue
 
 # creating the hue bridge object
-hue = Hue(bridge_ip='192.168.0.168', username='On7BHR03llq17sPfD6k-0zc5eHMETVQv2mCHH6xv')
+hue = Hue(bridge_ip='192.168.0.36', username='Dk36xjaPYdGzPr1PMinYXeQGhAq5rN7MWB9mZx8i')
 
 # creating the light object
 light = hue.get_light(name='Hue white lamp')
+
+room_id = 1
+
+def change_light_brightness(light, brightness):
+    hue_bright = (254 * (brightness/100))
+    light.set_brightness(hue_bright)
 
 
 def get_user_id():
@@ -20,30 +26,33 @@ def get_user_id():
     
 
 def get_routine_info(user_id):
-    routine = requests.get('https://jarvis-1.5a25j6q6mjvnu.eu-west-1.cs.amazonlightsail.com/routines/users/' + str(user_id) + '/now' )
+    routine = requests.get('https://jarvis-1.5a25j6q6mjvnu.eu-west-1.cs.amazonlightsail.com/routines/rooms/' + str(room_id) + '/users/' + str(user_id))
 
     if not routine.json() == 'None':
         resp = routine.json()
-        print("Routine found...")
+        print("Routine found..." + resp[0]['name'])
     else:
         print("No routine action required...")
         return None
     return resp
 
 
-def hue_brightness(brightness):
-    hue_bright = (254 * (brightness/100))
-    return int(hue_bright)
+def handle_light_settings(x):
+    if x['is_active'] == True:
+        light.on()
+        print(x['brightness'])
+        change_light_brightness(light, x['brightness'])
 
 
 def handle_devices(routine):
-    for x in routine['devices']:
+    for x in routine[0]['devices']:
         if x['type'] == 'light':
             print("Setting light device..." + x['name'])
-            light = hue.get_light(x['name'])
-            hue.change_light_brightness(light, hue_brightness(x['brightness']))
+            handle_light_settings(x)
+
         elif x['type'] == 'media':
             print("Setting media device..." + x['name'])
+
         elif x['type'] == 'trv':
             print("Setting trv device..." + x['name'])
 
@@ -55,12 +64,12 @@ while True:
     user_id_int = int(user_id_string)
 
     if user_id_int > 0:
-        print("User found: " + user_id_int)
+        print("User found: " + str(user_id_int))
         routine = get_routine_info(user_id_int)
 
         if routine != None:
             print("Setting devices...")
             handle_devices(routine)
     
-    time.sleep(10)
+    time.sleep(5)
  

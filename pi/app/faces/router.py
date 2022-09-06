@@ -23,7 +23,8 @@ def upload(user_id: int, files: List[UploadFile] = File(...)):
         image_path = get_image_path(str(user_id), file.filename)
         store_image(image_path, file)
         
-    os.remove(representations_file)
+    # if representations_file:
+    #     os.remove(representations_file)
 
     return {"message": f"Successfully uploaded {[file.filename for file in files]}"}
 
