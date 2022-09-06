@@ -40,6 +40,10 @@ async def get_active_routine(room_id: int, database: Session = Depends(db.get_db
 # select routine by returned routine id
 #
 
+@router.get('/rooms/{room_id}/users/{user_id}', response_model=List[schema.RoutineInfo])
+async def get_active_routine_by_room(room_id: int, user_id: int, database: Session = Depends(db.get_db)):
+    return await services.get_active_routine_by_room(room_id, user_id, database)
+
 
 @router.delete('/{routine_id}', status_code=status.HTTP_204_NO_CONTENT, response_class=Response)
 async def delete_routine_by_id(routine_id: int, database: Session = Depends(db.get_db),

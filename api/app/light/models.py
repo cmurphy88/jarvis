@@ -8,11 +8,11 @@ class Light(Base):
     __tablename__ = "light"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    ip_address = Column(String(50))
+    mac_address = Column(String(50))
     name = Column(String(50))
 
-    def __init__(self, ip_address, name, *args, **kwargs):
-        self.ip_address = ip_address
+    def __init__(self, mac_address, name, *args, **kwargs):
+        self.mac_address = mac_address
         self.name = name
 
 

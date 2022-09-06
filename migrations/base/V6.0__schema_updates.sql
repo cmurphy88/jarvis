@@ -1,0 +1,1 @@
+ALTER TABLE light RENAME COLUMN ip_address TO mac_address;

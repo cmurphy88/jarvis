@@ -145,6 +145,7 @@ class RoutineDevicesCreate(BaseModel):
 class RoutineInfo(BaseModel):
     id: int
     room_id: int
+    user_id: int
     name: str
     user: str
     start_time: time

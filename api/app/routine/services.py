@@ -133,7 +133,8 @@ async def get_active_routine(room_id, database) -> RoutineInfo:
         devices.extend(media)
         devices.extend(trv)
 
-        routine_info = RoutineInfo(id=x.id, room_id=x.room_id, name=x.name, user=username, start_time=x.start_time,
+        routine_info = RoutineInfo(id=x.id, user_id=x.user_id, room_id=x.room_id, name=x.name, user=username,
+                                   start_time=x.start_time,
                                    end_time=x.end_time,
                                    devices=devices)
         routine_list.append(routine_info)
@@ -149,6 +150,71 @@ async def get_active_routine(room_id, database) -> RoutineInfo:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No active routine!")
 
     return current_list[0]
+
+
+async def get_active_routine_by_room(room_id, user_id, database) -> List[RoutineInfo]:
+    user_routines = database.query(models.Routine).filter(models.Routine.room_id == room_id).all()
+
+    routine_list = list()
+    current_time = datetime.now().time()
+
+    for x in user_routines:
+        user_id = x.user_id
+        user = database.query(User).get(user_id)
+        username = user.first_name + ' ' + user.last_name
+
+        lights = map_light_to_view(x.light_routine_settings, database)
+        media = map_media_to_view(x.media_routine_settings, database)
+        trv = map_trv_to_view(x.trv_routine_settings, database)
+
+        devices = []
+        devices.extend(lights)
+        devices.extend(media)
+        devices.extend(trv)
+
+        routine_info = RoutineInfo(id=x.id, room_id=x.room_id, user_id=user_id, name=x.name, user=username,
+                                   start_time=x.start_time,
+                                   end_time=x.end_time,
+                                   devices=devices)
+        routine_list.append(routine_info)
+
+    current_list = []
+
+    for x in routine_list:
+        if (x.user_id == user_id) and (x.start_time < current_time) and (x.end_time > current_time):
+            current_list.append(x)
+
+    if len(current_list) == 0:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No active routine!")
+
+    if len(current_list) > 0:
+        is_active = await is_routine_active(current_list[0], database)
+        if not is_active:
+            await create_time_entries(current_list[0], database)
+        else:
+            raise HTTPException(status_code=status.HTTP_200_OK, detail="Routine is already active!")
+
+    return current_list
+
+
+async def is_routine_active(routine, database):
+    current_date = datetime.now().date()
+
+    entries = database.query(models.RoutineTimeEntries).filter(models.RoutineTimeEntries.routine_id == routine.id)
+    for x in entries:
+        if x.time_entry.date() == current_date:
+            return True
+        else:
+            continue
+
+
+async def create_time_entries(routine, database):
+    current_time_date = datetime.now()
+    new_time_entry = models.RoutineTimeEntries(routine_id=routine.id, time_entry=current_time_date)
+
+    database.add(new_time_entry)
+    database.commit()
+    database.refresh(new_time_entry)
 
 
 async def create_routine_time_entry(request, database) -> CreateRoutineTimeEntry:
