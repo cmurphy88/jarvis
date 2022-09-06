@@ -16,7 +16,7 @@ room_id = 1
 
 def change_light_brightness(light, brightness):
     hue_bright = (254 * (brightness/100))
-    light.set_brightness(hue_bright)
+    light.set_brightness(int(hue_bright))
 
 
 def get_user_id():
@@ -32,7 +32,7 @@ def get_routine_info(user_id):
 
     if resp == 'None':
         print('No routine found...')
-    if resp['detail'] == 'Routine is already active!':
+    if 'detail' in resp:
         print('Routine is already active...')
     else:
         print("Routine found..." + resp[0]['name'])
@@ -59,6 +59,8 @@ def handle_devices(routine):
 
         elif x['type'] == 'trv':
             print("Setting trv device..." + x['name'])
+        
+    print("Routine now active...")
 
 
 while True:
@@ -71,7 +73,7 @@ while True:
         print("User found: " + str(user_id_int))
         routine = get_routine_info(user_id_int)
 
-        if routine != None and routine['detail'] != 'Routine is already active!':
+        if routine != None and 'detail' not in routine:
             print("Setting devices...")
             handle_devices(routine)
     
