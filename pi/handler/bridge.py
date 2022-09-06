@@ -3,14 +3,14 @@ from turtle import delay
 from huesdk import Hue
 
 # creating the hue bridge object
-hue = Hue(bridge_ip='192.168.0.36', username='Dk36xjaPYdGzPr1PMinYXeQGhAq5rN7MWB9mZx8i')
+hue = Hue(bridge_ip='192.168.0.10', username='LckczTpYzebKvDeueCoUVUs1SpDaA6FDy4f6be2r')
 
 # creating the light object
 light = hue.get_light(name='Hue white lamp')
 
 # methods for controlling the lights
 def connect_hue():
-    username = Hue.connect(bridge_ip='192.168.0.36')
+    username = Hue.connect(bridge_ip='192.168.0.10')
     print(username)
 
 
@@ -51,5 +51,6 @@ def make_light_blink(light):
         print(counter)
 
 
-turn_light_on(light)
-change_light_brightness(light, 254)
+# turn_light_on(light)
+# change_light_brightness(light, 254)
+connect_hue()
