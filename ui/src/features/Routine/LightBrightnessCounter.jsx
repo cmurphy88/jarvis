@@ -45,7 +45,8 @@ export default function LightBrightness({ brightness, handleFormInputChange, dis
       </Typography>
       <Grid container spacing={2} alignItems="center">
         <Grid item>
-          <LightbulbIcon />
+          <LightbulbIcon sx={{ display: { xs: "none", md: "flex" } }}
+          />
         </Grid>
         <Grid item xs>
           <Slider
@@ -53,6 +54,7 @@ export default function LightBrightness({ brightness, handleFormInputChange, dis
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
             disabled={disabled}
+            sx={{ display: { xs: "none", md: "flex" } }}
           />
         </Grid>
         <Grid item>

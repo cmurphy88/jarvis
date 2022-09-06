@@ -40,7 +40,7 @@ export default function DeviceTable({
   };
   return (
     <TableContainer component={Paper} sx={{ marginTop: 3 }}>
-      <Table sx={{ minWidth: 380 }} aria-label="simple table">
+      <Table sx={{ minWidth: { xs: 300, md: 380 } }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Device</TableCell>
