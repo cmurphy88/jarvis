@@ -35,11 +35,6 @@ async def get_active_routine(room_id: int, database: Session = Depends(db.get_db
     return await services.get_active_routine(room_id, database)
 
 
-# call to routine time entries
-# returns array of routine time entries
-# select routine by returned routine id
-#
-
 @router.get('/rooms/{room_id}/users/{user_id}', response_model=List[schema.RoutineInfo])
 async def get_active_routine_by_room(room_id: int, user_id: int, database: Session = Depends(db.get_db)):
     return await services.get_active_routine_by_room(room_id, user_id, database)

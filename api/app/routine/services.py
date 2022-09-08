@@ -104,6 +104,7 @@ async def get_user_routine(user_id, database) -> List[RoutineInfo]:
 
         routine_info = RoutineInfo(id=x.id, room_id=x.room_id, name=x.name, user=username, start_time=x.start_time,
                                    end_time=x.end_time,
+                                   routine_id=x.routine_id,
                                    devices=devices)
         routine_list.append(routine_info)
 
@@ -135,6 +136,7 @@ async def get_active_routine(room_id, database) -> RoutineInfo:
 
         routine_info = RoutineInfo(id=x.id, user_id=x.user_id, room_id=x.room_id, name=x.name, user=username,
                                    start_time=x.start_time,
+                                   routine_id=x.routine_id,
                                    end_time=x.end_time,
                                    devices=devices)
         routine_list.append(routine_info)
@@ -160,6 +162,7 @@ async def get_active_routine_by_room(room_id, user_id, database) -> List[Routine
 
     for x in user_routines:
         user_id = x.user_id
+        routine_id = x.routine_id
         user = database.query(User).get(user_id)
         username = user.first_name + ' ' + user.last_name
 
@@ -172,7 +175,9 @@ async def get_active_routine_by_room(room_id, user_id, database) -> List[Routine
         devices.extend(media)
         devices.extend(trv)
 
-        routine_info = RoutineInfo(id=x.id, room_id=x.room_id, user_id=user_id, name=x.name, user=username,
+        routine_info = RoutineInfo(id=x.id, room_id=x.room_id, user_id=user_id,
+                                   routine_id=routine_id,
+                                   name=x.name, user=username,
                                    start_time=x.start_time,
                                    end_time=x.end_time,
                                    devices=devices)
@@ -181,7 +186,7 @@ async def get_active_routine_by_room(room_id, user_id, database) -> List[Routine
     current_list = []
 
     for x in routine_list:
-        if (x.user_id == user_id) and (x.start_time < current_time) and (x.end_time > current_time):
+        if (x.routine_id == routine_id) and (x.start_time < current_time) and (x.end_time > current_time):
             current_list.append(x)
 
     if len(current_list) == 0:
