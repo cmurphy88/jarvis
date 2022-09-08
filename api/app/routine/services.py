@@ -154,7 +154,7 @@ async def get_active_routine(room_id, database) -> RoutineInfo:
     return current_list[0]
 
 
-async def get_active_routine_by_room(room_id, user_id, database) -> List[RoutineInfo]:
+async def get_active_routine_by_room(room_id, number, database) -> List[RoutineInfo]:
     user_routines = database.query(models.Routine).filter(models.Routine.room_id == room_id).all()
 
     routine_list = list()
@@ -162,7 +162,7 @@ async def get_active_routine_by_room(room_id, user_id, database) -> List[Routine
 
     for x in user_routines:
         user_id = x.user_id
-        routine_id = x.routine_id
+        routine_id = x.id
         user = database.query(User).get(user_id)
         username = user.first_name + ' ' + user.last_name
 
@@ -175,7 +175,7 @@ async def get_active_routine_by_room(room_id, user_id, database) -> List[Routine
         devices.extend(media)
         devices.extend(trv)
 
-        routine_info = RoutineInfo(id=x.id, room_id=x.room_id, user_id=user_id,
+        routine_info = RoutineInfo(id=x.id, room_id=x.room_id, user_id=x.user_id,
                                    routine_id=routine_id,
                                    name=x.name, user=username,
                                    start_time=x.start_time,
@@ -186,7 +186,7 @@ async def get_active_routine_by_room(room_id, user_id, database) -> List[Routine
     current_list = []
 
     for x in routine_list:
-        if (x.routine_id == routine_id) and (x.start_time < current_time) and (x.end_time > current_time):
+        if (x.user_id == number) and (x.start_time < current_time) and (x.end_time > current_time):
             current_list.append(x)
 
     if len(current_list) == 0:
