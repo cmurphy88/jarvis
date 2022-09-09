@@ -76,6 +76,8 @@ while True:
         if routine != None and 'detail' not in routine:
             print("Setting devices...")
             handle_devices(routine)
+    else:
+        print('no user found...')
     
     time.sleep(5)
  
