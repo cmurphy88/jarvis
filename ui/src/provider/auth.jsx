@@ -31,14 +31,6 @@ async function login(formData) {
     return response.data;
 }
 
-
-// async function logout() {
-//     const response = await redaxios.delete("/api/sessions");
-
-//     return response.data.data;
-// }
-
-
 function register({ username, password }) {
     return post("register", { username, password }).then(handleUserResponse);
 }

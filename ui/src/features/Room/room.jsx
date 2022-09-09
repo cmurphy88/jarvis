@@ -17,14 +17,9 @@ import ActiveRoutine from "./ActiveRoutine";
 function RoomPage() {
   let { id } = useParams();
   const [displayModal, setDisplayModal] = React.useState(false);
-  // const { user } = useAuth()
   const [routines, setRoutines] = React.useState([]);
   const [selectedRoutine, setSelectedRoutine] = React.useState(null);
   const [room, setRoom] = React.useState(null);
-  // const [currentRoutine, setCurrentRoutine] = React.useState([]);
-
-
-
 
   useEffect(() => {
     const retrieveRoom = async () => {
@@ -42,17 +37,6 @@ function RoomPage() {
     fetchRoutines()
       .catch(console.error);
   }, [id]);
-
-  // useEffect(() => {
-  //   const fetchCurrentRoutine = async () => {
-  //     // console.log(user.id)
-  //     const data = await getCurrentRoutine(user.id)
-  //     setCurrentRoutine(data);
-  //       // console.log("Current Routine", currentRoutine)
-  //   };
-  //   fetchCurrentRoutine()
-  //     .catch(console.error);
-  // }, [user.id], id);
 
   const handleSelectedRow = (routine) => {
     setSelectedRoutine(routine);
@@ -84,14 +68,6 @@ function RoomPage() {
             </div>
 
             <ActiveRoutine roomId={id} />
-            {/* <Box sx={{ p: 3, marginBottom: 5 }}>
-            <h2>Current Routine: </h2>
-            {currentRoutine ? (<CurrentRoutineAccordion
-              currentRoutine={currentRoutine}
-              roomId={id}
-            />) : <p>No routine active</p>}
-
-          </Box> */}
             <Box sx={{ p: 3 }}>
               <h2>Routines</h2>
 
