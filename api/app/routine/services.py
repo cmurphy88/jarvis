@@ -136,7 +136,7 @@ async def get_active_routine(room_id, database) -> RoutineInfo:
 
         routine_info = RoutineInfo(id=x.id, user_id=x.user_id, room_id=x.room_id, name=x.name, user=username,
                                    start_time=x.start_time,
-                                   routine_id=x.routine_id,
+                                   routine_id=x.id,
                                    end_time=x.end_time,
                                    devices=devices)
         routine_list.append(routine_info)

@@ -86,6 +86,7 @@ async def get_all_room_routines(room_id, database) -> List[RoutineInfo]:
 
         routine_info = RoutineInfo(id=x.id, room_id=x.room_id, user_id=x.user_id, name=x.name, user=username,
                                    start_time=x.start_time,
+                                   routine_id=x.id,
                                    end_time=x.end_time,
                                    devices=devices)
         routine_list.append(routine_info)
