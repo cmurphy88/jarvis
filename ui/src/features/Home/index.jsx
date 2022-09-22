@@ -6,10 +6,12 @@ import HomeAccordian from "./HomeAccordian";
 import HomeIcon from "@mui/icons-material/Home"
 import { getUsersHomes } from "../../shared/api/HomesAPI";
 import useAuth from "../../provider/useAuth";
+import AddHomeModal from "./AddHomeModal.jsx";
 
 function HomePage() {
   const { user } = useAuth()
   const [homes, setHomes] = useState()
+  const [ setDisplayModal] = React.useState(false);
 
   useEffect(() => {
     // declare the data fetching function
@@ -54,13 +56,13 @@ function HomePage() {
                     justifyContent="space-between"
                     alignItems="center"
                   >
-                    <Button
-                      variant="contained"
-                      sx={{ display: "flex" }}
-                      disabled
-                    >
-                      Add Home
-                    </Button>
+                    <AddHomeModal
+                      handleClose={() => {
+                        setDisplayModal(false);
+                      }}
+                      
+                    />
+
                     <Button
                       variant="contained"
                       sx={{ display: "flex" }}
