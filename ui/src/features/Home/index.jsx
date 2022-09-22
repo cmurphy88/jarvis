@@ -11,7 +11,7 @@ import AddHomeModal from "./AddHomeModal.jsx";
 function HomePage() {
   const { user } = useAuth()
   const [homes, setHomes] = useState()
-  const [displayModal, setDisplayModal] = React.useState(false);
+  // const [displayModal, setDisplayModal] = React.useState(false);
 
   useEffect(() => {
     // declare the data fetching function
@@ -56,11 +56,11 @@ function HomePage() {
                     justifyContent="space-between"
                     alignItems="center"
                   >
-                    <AddHomeModal
+                    {/* <AddHomeModal
                       handleClose={() => {
                         setDisplayModal(false);
                       }}
-                    />
+                    /> */}
 
                     <Button
                       variant="contained"
