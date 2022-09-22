@@ -13,8 +13,8 @@ from ..users.schema import DisplayUser
 router = APIRouter(tags=['Homes'], prefix='/homes')
 
 
-@router.post('/', status_code=status.HTTP_201_CREATED)
-async def create_home_registration(request: schema.Home, database: Session = Depends(db.get_db)):
+@router.post('', status_code=status.HTTP_201_CREATED)
+async def create_home(request: schema.Home, database: Session = Depends(db.get_db)):
     user = await validator.verify_home_exist(request.name, database)
 
     if user:
@@ -27,7 +27,7 @@ async def create_home_registration(request: schema.Home, database: Session = Dep
     return new_home
 
 
-@router.get('/', response_model=List[schema.DisplayHome])
+@router.get('', response_model=List[schema.DisplayHome])
 async def get_all_homes(database: Session = Depends(db.get_db)):
     return await services.all_homes(database)
 
@@ -35,6 +35,16 @@ async def get_all_homes(database: Session = Depends(db.get_db)):
 @router.get('/{home_id}', response_model=schema.DisplayHome)
 async def get_home_by_id(home_id: int, database: Session = Depends(db.get_db)):
     return await services.get_home_by_id(home_id, database)
+
+
+@router.get('/{name}', response_model=schema.DisplayHome)
+async def get_home_by_name(name: str, database: Session = Depends(db.get_db)):
+    return await services.get_home_by_name(name, database)
+
+
+@router.post('/create', status_code=status.HTTP_201_CREATED)
+async def create_home_and_add_user(request: schema.CreateHomeAndAddUser, database: Session = Depends(db.get_db)):
+    return await services.create_home_and_add_user(request, database)
 
 
 @router.delete('/{home_id}', status_code=status.HTTP_204_NO_CONTENT, response_class=Response)

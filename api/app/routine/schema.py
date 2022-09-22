@@ -117,7 +117,6 @@ class RoutineDevices(BaseModel):
 
 
 class DeviceRoutineSettingCreate(BaseModel):
-    id: int
     name: str
     is_active: bool
     type: str
@@ -172,4 +171,13 @@ class CreateRoutineResponse(BaseModel):
 class CreateRoutineTimeEntry(BaseModel):
     routine_id: int
     time_entry: Timestamp
+
+
+class CreateRoutineInfo(BaseModel):
+    name: str
+    room_id: int
+    user_id: int
+    start_time: time
+    end_time: time
+    devices: List[Union[LightRoutineSettingCreate, MediaRoutineSettingCreate, TrvRoutineSettingCreate]]
 

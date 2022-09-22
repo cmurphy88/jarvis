@@ -2,6 +2,8 @@ from typing import List, Optional
 
 from fastapi import HTTPException, status
 from .models import Home, HomeUser
+from .schema import CreateHomeAndAddUser
+from ..auth.jwt import get_current_user
 from ..room.models import Room
 from ..users.models import User
 
@@ -11,6 +13,25 @@ async def new_home_register(request, database) -> Home:
     database.add(new_home)
     database.commit()
     database.refresh(new_home)
+    return new_home
+
+
+async def create_home_and_add_user(request, database) -> Optional[Home]:
+    new_home = Home(name=request.name)
+    database.add(new_home)
+    database.commit()
+    database.refresh(new_home)
+
+    home = database.query(Home).filter(Home.name == request.name).first()
+    home_id = home.id
+
+    new_home_user = HomeUser(home_id=home_id,
+                             user_id=request.user_id,
+                             is_admin=request.is_admin)
+    database.add(new_home_user)
+    database.commit()
+    database.refresh(new_home_user)
+
     return new_home
 
 
@@ -24,6 +45,20 @@ async def get_home_by_id(home_id, database) -> Optional[Home]:
     if not home_info:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Data not found !")
     return home_info
+
+
+async def get_home_by_name(home_name, database) -> Optional[Home]:
+    home_info = database.query(Home).all()
+
+    selected_home = []
+
+    for x in home_info:
+        if x.home.name == home_name:
+            selected_home.append(x)
+
+    if not home_info:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Data not found !")
+    return selected_home[0]
 
 
 async def delete_home_by_id(home_id, database):
