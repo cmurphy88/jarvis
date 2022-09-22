@@ -5,8 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { addNewHome } from '../../shared/api/HomesAPI';
 import { Controller, useForm } from 'react-hook-form';
-import { Alert, TextField } from '@mui/material';
-import { getCurrentUser } from '../../provider/auth';
+import { TextField } from '@mui/material';
 import useAuth from '../../provider/useAuth';
 
 const style = {
@@ -38,9 +37,10 @@ export default function AddRoomModal() {
     //     settingNewHome()
     // }, [data])
 
-    const successMessage = () => {
-        <Alert severity="success">This is a success alert — check it out!</Alert>
-    };
+
+    // const successMessage = () => {
+    //     <Alert severity="success">This is a success alert — check it out!</Alert>
+    // };
 
     return (
         <div>
@@ -90,10 +90,13 @@ export default function AddRoomModal() {
                     <Button
                         variant='contained'
                         sx={{ marginTop: 5 }}
-                        onClick={handleSubmit(createNewHome)}
+                        onClick={
+                            handleSubmit(createNewHome)
+                        }
                     >
                         Submit
                     </Button>
+                    {/* <Alert severity="success">This is a success alert — check it out!</Alert> */}
                     <Button
                         onClick={handleClose}
                         variant='contained'
