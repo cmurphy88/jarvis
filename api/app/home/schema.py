@@ -5,6 +5,12 @@ class Home(BaseModel):
     name: constr(min_length=2, max_length=50)
 
 
+class CreateHomeAndAddUser(BaseModel):
+    name: str
+    user_id: int
+    is_admin: StrictBool
+
+
 class DisplayHome(BaseModel):
     id: int
     name: str

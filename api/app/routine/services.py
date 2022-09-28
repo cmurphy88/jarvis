@@ -111,6 +111,24 @@ async def get_user_routine(user_id, database) -> List[RoutineInfo]:
     return routine_list
 
 
+async def create_routine_info(request, database) -> RoutineInfo:
+    new_routine = models.Routine(name=request.name,
+                                 room_id=request.room_id,
+                                 user_id=request.user_id,
+                                 start_time=request.start_time,
+                                 end_time=request.end_time,
+                                 )
+
+    light_devices = build_light_routine_settings(database, request)
+    media_devices = build_media_routine_settings(database, request)
+    new_routine.light_routine_settings = light_devices
+    new_routine.media_routine_settings = media_devices
+
+    database.add(new_routine)
+    database.commit()
+    database.refresh(new_routine)
+
+
 async def get_active_routine(room_id, database) -> RoutineInfo:
     user_routines = database.query(models.Routine).filter(models.Routine.room_id == room_id).all()
 
