@@ -45,9 +45,11 @@ export default function HomeAccordian({ home }) {
                     </ListItemButton>
                 })}
 
-                <Box sx={{ display: "flex", justifyContent: "right", p: 2}}>
-                        <AddRoomModal />
-                        <RemoveRoomModal />
+                <Box sx={{ display: "flex", justifyContent: "right", p: 2 }}>
+                    <AddRoomModal
+                        home={home}
+                    />
+                    <RemoveRoomModal />
                 </Box>
             </AccordionDetails>
 

@@ -3,6 +3,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { Controller, useForm } from 'react-hook-form';
+import { TextField } from '@mui/material';
+import { createNewRoom } from '../../shared/api/RoomAPI';
 
 const style = {
   position: 'absolute',
@@ -16,10 +19,15 @@ const style = {
   p: 4,
 };
 
-export default function AddRoomModal() {
+export default function AddRoomModal(home) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { handleSubmit, control } = useForm();
+
+  // const createNewRoom = (formData) => addNewRoom(formData.home_name, user.id, true);
+
+  const addNewRoom = (formData) => createNewRoom(formData.room_name, home.home.id);
 
   return (
     <div>
@@ -35,13 +43,50 @@ export default function AddRoomModal() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            This is the add room modal
+            Create a new room: <b>{home.home.name}</b>
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            This is where you can add a new room to the house...
-          </Typography>
-          <Button variant='contained' sx={{marginTop: 5}}>Add room</Button>
-          <Button onClick={handleClose} variant='contained' sx={{marginTop: 5, marginLeft: 5}}>Cancel</Button>
+          <Controller
+            name="room_name"
+            control={control}
+            defaultValue=""
+            rules={{ required: "Name required" }}
+            render={({
+              field: { onChange, value },
+              fieldState: { error },
+            }) => (
+              <TextField
+                id="outlined-name"
+                label="room name"
+                type="text"
+                value={value}
+                onChange={onChange}
+                variant="standard"
+                margin="dense"
+                error={!!error}
+                helperText={error ? error.message : null}
+                required
+              />
+            )}
+          />
+          <Box>
+            <Button
+              variant='contained'
+              sx={{ marginTop: 5 }}
+              onClick={
+                handleSubmit(addNewRoom)
+              }
+            >
+              submit
+            </Button>
+            <Button
+              onClick={handleClose}
+              variant='contained'
+              sx={{ marginTop: 5, marginLeft: 5 }}
+            >
+              Cancel
+            </Button>
+          </Box>
+
         </Box>
       </Modal>
     </div>

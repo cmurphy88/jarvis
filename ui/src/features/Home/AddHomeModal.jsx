@@ -42,6 +42,10 @@ export default function AddRoomModal() {
     //     <Alert severity="success">This is a success alert — check it out!</Alert>
     // };
 
+    // async function handleOnClick() {
+    //     handleSubmit(createNewHome).then(handleClose)
+    // } 
+
     return (
         <div>
             <Button
@@ -50,7 +54,7 @@ export default function AddRoomModal() {
                 display='flex'
                 variant='contained'
             >
-                Add room
+                Add home
             </Button>
             <Modal
                 open={open}
@@ -92,6 +96,7 @@ export default function AddRoomModal() {
                         sx={{ marginTop: 5 }}
                         onClick={
                             handleSubmit(createNewHome)
+                            
                         }
                     >
                         Submit
